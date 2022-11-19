@@ -22,4 +22,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/items", () =>
+{
+   
+}).WithName("GetAllItems");
+
+app.MapPost("/items/{name}", (string name) =>
+{
+
+}).WithName("GetItemByName");
+
 app.Run();
