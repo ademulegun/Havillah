@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{3254FB1C-17CD-4610-A1BD-80FB6B632DB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havillah.ApplicationServices", "Havillah.ApplicationServices\Havillah.ApplicationServices.csproj", "{B3812325-F1D2-49A3-9548-EC4A7E98F260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,11 +19,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1B707614-AD01-4EAF-AF21-3BE925602830} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
