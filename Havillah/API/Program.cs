@@ -1,9 +1,14 @@
+using Havillah.ApplicationServices.Extensions;
+using Havillah.Persistence;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("");
+builder.Services.AddDbContext<DatabaseContext>(x=>x.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -22,14 +27,22 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+builder.Services.AddMediatR();
+
+#region items
+app.MapPost("/item", () =>
+{
+
+}).WithName("AddNewItem").WithTags("Item");
+
 app.MapGet("/items", () =>
 {
    
-}).WithName("GetAllItems");
+}).WithName("GetAllItems").WithTags("Item");
 
 app.MapPost("/items/{name}", (string name) =>
 {
 
-}).WithName("GetItemByName");
-
+}).WithName("GetItemByName").WithTags("Item");
+#endregion
 app.Run();
