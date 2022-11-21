@@ -1,16 +1,27 @@
+using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Dto;
 using MediatR;
 
 namespace Havillah.ApplicationServices.Product.AddProduct.Handlers;
 
-public class AddProduct : IRequest<string>
+public class AddProductCommand : IRequest<string>
 {
     public AddProductDto AddProductDto { get; set; }
-    public class AddProductHandler: IRequestHandler<AddProduct, string>
+    
+    public class AddProductCommandHandler: IRequestHandler<AddProductCommand, string>
     {
-        public Task<string> Handle(AddProduct request, CancellationToken cancellationToken)
+        private readonly IRepository<Core.Domain.Product> _repository;
+        public AddProductCommandHandler(IRepository<Core.Domain.Product> repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+        }
+        public async Task<string> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        {
+            var productId = Guid.NewGuid();
+            var product = Core.Domain.Product.ProductFactory.Create(productId, "", "", "", "", 1, 0.0, 0.0);
+            await _repository.Add(model: product);
+            var result = await _repository.Save();
+            return "";
         }
     }   
 }

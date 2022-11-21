@@ -1,3 +1,4 @@
+using Havillah.ApplicationServices.Product.AddProduct.Handlers;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,6 +8,6 @@ public static class Dependencies
 {
     public static void AddMediatR(this IServiceCollection services)
     {
-        //services.AddMediatR(typeof(ProductByIdQuery));
+        services.AddMediatR(typeof(AddProductCommand).Assembly);
     }
 }
