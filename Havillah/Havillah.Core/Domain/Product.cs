@@ -1,31 +1,45 @@
 namespace Havillah.Core.Domain;
 
-public class Product
+public class Product: BaseEntity<Guid>
 {
-    public Product(int productId, string productName, string productCode, string barcode, string description, string productImageUrl, int unitOfMeasureId, double defaultBuyingPrice, double defaultSellingPrice, int branchId, int currencyId)
+    protected Product() { }
+    private Product(Guid id, string productName, string productCode, string description, string productImageUrl, int unitOfMeasureId, double buyingPrice, double sellingPrice)
     {
-        ProductId = productId;
+        Id = id;
         ProductName = productName;
         ProductCode = productCode;
-        Barcode = barcode;
         Description = description;
         ProductImageUrl = productImageUrl;
         UnitOfMeasureId = unitOfMeasureId;
-        DefaultBuyingPrice = defaultBuyingPrice;
-        DefaultSellingPrice = defaultSellingPrice;
-        BranchId = branchId;
-        CurrencyId = currencyId;
+        BuyingPrice = buyingPrice;
+        SellingPrice = sellingPrice;
+        DateAdded = DateTime.Now;
     }
-
-    public int ProductId { get; set; }
-    public string ProductName { get; set; }
-    public string ProductCode { get; set; }
-    public string Barcode { get; set; }
-    public string Description { get; set; }
-    public string ProductImageUrl { get; set; }
+    
+    public string ProductName { get; private set; }
+    public string ProductCode { get; private set; }
+    public string? Barcode { get; set; }
+    public string Description { get; private set; }
+    public string ProductImageUrl { get; private set; }
     public int UnitOfMeasureId { get; set; }
-    public double DefaultBuyingPrice { get; set; } = 0.0;
-    public double DefaultSellingPrice { get; set; } = 0.0;
+    public double BuyingPrice { get; private set; } = 0.0;
+    public double SellingPrice { get; private set; } = 0.0;
     public int BranchId { get; set; }
     public int CurrencyId { get; set; }
+
+    public static class ProductFactory
+    {
+        public static Product Create(Guid id, string productName, string productCode, string description,
+            string productImageUrl, int unitOfMeasureId, double buyingPrice, double sellingPrice)
+        {
+            return new Product(id, productName, productCode, description, productImageUrl, unitOfMeasureId, buyingPrice,
+                sellingPrice);
+        }
+    }
+}
+
+public abstract class BaseEntity<T>
+{
+    protected T Id { get; set; }
+    public DateTime DateAdded { get; set; }
 }
