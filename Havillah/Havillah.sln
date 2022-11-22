@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havillah.Infrasructure", "H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havillah.Persistence", "Havillah.Persistence\Havillah.Persistence.csproj", "{40773C4E-027C-44EB-B9D1-99CA2CB73A10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,7 @@ Global
 		{9998EE04-25B4-4494-BB1E-154B873D1959} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
 		{66DFE785-AF25-4F5F-A696-41BB054BE630} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
+		{A569BCB5-A418-46D2-8302-E72694FC08E6} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -51,5 +54,9 @@ Global
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
