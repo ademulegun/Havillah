@@ -1,8 +1,9 @@
 using System.Linq.Expressions;
 using Havillah.ApplicationServices.Interfaces;
-using Microsoft.VisualBasic;
+using Havillah.Persistence;
+using Microsoft.EntityFrameworkCore;
 
-namespace Havillah.Persistence.Repository;
+namespace Havillah.Persistense.Repository;
 
 public class Repository<T>: IRepository<T> where T: class, new()
 {
@@ -22,45 +23,37 @@ public class Repository<T>: IRepository<T> where T: class, new()
         await _context.Set<T>().AddRangeAsync(models);
     }
 
-    public Task Update(T model)
+    public void Update(T model)
     {
-        throw new NotImplementedException();
+        _context.Set<T>().Update(model);
     }
 
-    public Task UpdateRange(IEnumerable<T> models)
+    public void UpdateRange(IEnumerable<T> models)
     {
-        throw new NotImplementedException();
+        _context.Set<T>().UpdateRange(models);
     }
 
-    public Task Delete(T model)
+    public void Delete(T model)
     {
-        throw new NotImplementedException();
+      _context.Set<T>().Remove(model);
+    }
+    
+    public void DeleteRange(IEnumerable<T> models)
+    { 
+        _context.Set<T>().RemoveRange(models);
     }
 
-    public Task DeleteRange(IEnumerable<T> models)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<T> Find(Expression<Func<T, bool>> predicate)
+        => (await _context.Set<T>().FirstOrDefaultAsync(predicate))!;
 
-    public Task<T> Find(Expression<Func<T, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<T> Get(T id)
+        => (await _context.Set<T>().FindAsync(id))!;
 
-    public Task<T> Get(T id)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<T>> GetAll()
+        => (await _context.Set<T>().ToListAsync())!;
 
-    public Task<IEnumerable<T>> GetAll()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<IEnumerable<T>> GetWhere(Expression<Func<T, bool>> predicate)
+        => (await _context.Set<T>().Where(predicate).ToListAsync())!;
 
     public async Task<int> Save()
     {
