@@ -36,10 +36,22 @@ public class Product: BaseEntity<Guid>
                 sellingPrice);
         }
     }
-}
 
-public abstract class BaseEntity<T>
-{
-    protected T Id { get; set; }
-    public DateTime DateAdded { get; set; }
+    public Product SetUnitOfMeasureId(int unitOfMeasureId)
+    {
+        this.UnitOfMeasureId = unitOfMeasureId;
+        return this;
+    }
+    
+    public Product SetBranchId(int branchId)
+    {
+        this.BranchId = branchId;
+        return this;
+    }
+    
+    public Product SetCurrencyId(int currencyId)
+    {
+        this.CurrencyId = currencyId;
+        return this;
+    }
 }

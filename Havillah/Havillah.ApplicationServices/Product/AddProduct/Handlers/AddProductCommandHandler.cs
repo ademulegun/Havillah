@@ -18,10 +18,13 @@ public class AddProductCommand : IRequest<string>
         public async Task<string> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             var productId = Guid.NewGuid();
-            var product = Core.Domain.Product.ProductFactory.Create(productId, "", "", "", "", 1, 0.0, 0.0);
+            var product = Core.Domain.Product.ProductFactory.Create(productId, request.AddProductDto.ProductName, request.AddProductDto.ProductCode,
+                request.AddProductDto.Description, request.AddProductDto.ProductImageUrl, request.AddProductDto.UnitOfMeasureId, request.AddProductDto.DefaultBuyingPrice,
+                request.AddProductDto.DefaultSellingPrice).SetBranchId(request.AddProductDto.BranchId)
+                .SetCurrencyId(request.AddProductDto.CurrencyId)
+                .SetUnitOfMeasureId(request.AddProductDto.UnitOfMeasureId);
             await _repository.Add(model: product);
-            var result = await _repository.Save();
-            return "";
+            return await _repository.Save() > 1 ? "Product added successfully" : "Unable to add product";
         }
     }   
 }

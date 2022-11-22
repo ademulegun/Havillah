@@ -3,7 +3,7 @@ using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Dto;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
 using Havillah.Persistence;
-using Havillah.Persistence.Repository;
+using Havillah.Persistense.Repository;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
