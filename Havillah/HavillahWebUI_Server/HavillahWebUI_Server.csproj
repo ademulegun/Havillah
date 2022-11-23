@@ -6,4 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+    </ItemGroup>
+
 </Project>

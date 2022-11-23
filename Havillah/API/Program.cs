@@ -36,12 +36,25 @@ app.MapControllers();
 
 builder.Services.AddMediatR();
 
-#region items
+#region Authentication
+app.MapPost("/login", async([FromBody]AddProductDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new AddProductCommand(){AddProductDto = model});
+    return Results.Ok();
+}).WithName("Login").WithTags("Authentication");
+
+app.MapPost("/registerUser", async([FromBody]AddProductDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new AddProductCommand(){AddProductDto = model});
+    return Results.Ok();
+}).WithName("RegisterUser").WithTags("Authentication");
+#endregion
+
+#region Product
 app.MapPost("/product", async([FromBody]AddProductDto model, IMediator mediator) =>
 {
     var result = await mediator.Send(new AddProductCommand(){AddProductDto = model});
     return Results.Ok();
 }).WithName("AddProduct").WithTags("Product");
-
 #endregion
 app.Run();

@@ -1,0 +1,34 @@
+@inherits LayoutComponentBase
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Authentication</PageTitle>
+
+<div class="auth-page-wrapper pt-5">
+    <AuthPageBg/>
+    <!-- auth page content -->
+    <div class="auth-page-content">
+        <div class="container">
+            <AuthImage/>
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card mt-4">
+                        <div class="card-body p-4">
+                            @Body
+                        </div>
+                        <!-- end card body -->
+                    </div>
+                    <!-- end card -->
+
+                    <div class="mt-4 text-center">
+                        <p class="mb-0">Don't have an account ? <a href="/newUser" class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+    <!-- end auth page content -->
+    <AuthFooter/>
+</div>
