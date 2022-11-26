@@ -1,4 +1,4 @@
-namespace Havillah.ApplicationServices.Product.AddProduct.Dto;
+namespace Havillah.ApplicationServices.Product.UseCases.AddProduct.Dto;
 
 public class AddProductDto
 {

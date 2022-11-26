@@ -1,5 +1,5 @@
 using Havillah.ApplicationServices.Interfaces;
-using Havillah.ApplicationServices.Product.AddProduct.Dto;
+using Havillah.ApplicationServices.Product.UseCases.AddProduct.Dto;
 using MediatR;
 
 namespace Havillah.ApplicationServices.Product.AddProduct.Handlers;

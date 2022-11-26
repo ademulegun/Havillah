@@ -1,7 +1,7 @@
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
-using Havillah.ApplicationServices.Product.AddProduct.Dto;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
+using Havillah.ApplicationServices.Product.UseCases.AddProduct.Dto;
 using Havillah.Persistence;
 using Havillah.Persistense.Repository;
 using MediatR;
