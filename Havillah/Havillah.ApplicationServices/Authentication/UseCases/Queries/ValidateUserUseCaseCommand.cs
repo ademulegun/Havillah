@@ -11,13 +11,13 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace Havillah.ApplicationServices.Authentication.UseCases;
 
-public class ValidateUserCommand: IRequest<Result<string>>
+public class ValidateUserUseCaseCommand: IRequest<Result<string>>
 {
     public string Email { get; set; }
     public string Password { get; set; }
     public bool RememberMe { get; set; }
     
-    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserCommand, Result<string>>
+    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<string>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -27,7 +27,7 @@ public class ValidateUserCommand: IRequest<Result<string>>
             _configuration = configuration;
         }
 
-        public async Task<Result<string>> Handle(ValidateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user == null && !await _userManager.CheckPasswordAsync(user, request.Password)) return Result.Fail<string>("Invalid username or password");
