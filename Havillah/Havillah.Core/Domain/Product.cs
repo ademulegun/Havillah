@@ -22,10 +22,14 @@ public class Product: BaseEntity<Guid>
     public string Description { get; private set; }
     public string ProductImageUrl { get; private set; }
     public int UnitOfMeasureId { get; set; }
+    public int Quantity { get; set; }
     public double BuyingPrice { get; private set; } = 0.0;
     public double SellingPrice { get; private set; } = 0.0;
     public int BranchId { get; set; }
     public int CurrencyId { get; set; }
+    public DateTime Created { get; set; }
+    public string CreatedBy { get; set; }
+    public List<Stock> Stocks { get; private set; }
 
     public static class ProductFactory
     {

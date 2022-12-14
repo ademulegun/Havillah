@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Havillah.Persistense.Repository;
 
-public class Repository<T>: IRepository<T> where T: class, new()
+public class Repository<T>: IRepository<T> where T: class
 {
     private readonly DatabaseContext _context;
     public Repository(DatabaseContext context)

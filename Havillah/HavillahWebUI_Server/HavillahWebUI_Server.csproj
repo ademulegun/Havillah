@@ -4,10 +4,16 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+      <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     </ItemGroup>
 
 </Project>
