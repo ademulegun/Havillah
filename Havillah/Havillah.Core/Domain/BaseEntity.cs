@@ -10,6 +10,6 @@ public abstract class BaseEntity<T>
             throw new Exception("Id is invalid");
         }
     }
-    protected T Id { get; set; }
+    public T Id { get; set; }
     public DateTime DateAdded { get; set; }
 }

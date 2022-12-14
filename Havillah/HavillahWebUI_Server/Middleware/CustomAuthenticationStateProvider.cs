@@ -1,6 +1,7 @@
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
+using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
@@ -9,25 +10,34 @@ namespace HavillahWebUI_Server.Middleware;
 public class CustomAuthenticationStateProvider: AuthenticationStateProvider
 {
         private readonly HttpClient _httpClient;
-        private readonly ProtectedSessionStorage _SessiontorageService;
+        private readonly ILocalStorageService _sessionStorageService;
 
-        public CustomAuthenticationStateProvider(HttpClient httpClient, ProtectedSessionStorage sessiontorageService)
+        public CustomAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService sessionStorageService)
         {
             _httpClient = httpClient;
-            _SessiontorageService = sessiontorageService;
+            _sessionStorageService = sessionStorageService;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            var savedToken = await _SessiontorageService.GetAsync<string>("authToken");
-
-            if (string.IsNullOrWhiteSpace(savedToken.Value))
+            try
             {
-                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                var savedToken = await _sessionStorageService.GetItemAsync<string>("authToken");
+                if (string.IsNullOrWhiteSpace(savedToken))
+                {
+                    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                }
+                _httpClient.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue("bearer", savedToken);
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken), "jwt")));
             }
-            _httpClient.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue("bearer", savedToken.Value);
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(ParseClaimsFromJwt(savedToken.Value), "jwt")));
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+                //throw;
+            }
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
         }
 
         public void MarkUserAsAuthenticated(string email)

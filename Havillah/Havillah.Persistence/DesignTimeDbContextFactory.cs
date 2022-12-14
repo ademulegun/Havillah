@@ -15,8 +15,8 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<DatabaseCo
         var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("secrets.json", optional: true)
             .AddJsonFile("appsettings.json", optional: true)
+            .AddJsonFile("secrets.json", optional: true)
             .AddJsonFile($"appsettings.{envName}.json", optional: true)
             .AddUserSecrets(Assembly.GetExecutingAssembly(), optional:true)
             .Build();

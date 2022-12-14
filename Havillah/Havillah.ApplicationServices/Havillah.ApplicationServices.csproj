@@ -10,6 +10,8 @@
       <PackageReference Include="FluentValidation" Version="11.3.0" />
       <PackageReference Include="MediatR" Version="11.0.0" />
       <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.21.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.21.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +21,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Havillah.Core\Havillah.Core.csproj" />
+      <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>
 
 </Project>
