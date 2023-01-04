@@ -111,7 +111,7 @@ namespace Havillah.Persistense.Migrations
                             Id = new Guid("363b37a0-c306-4472-a405-4b576334cca0"),
                             AccessFailedCount = 0,
                             Address = "No 1 Jango steet, wild wild west, Texas",
-                            ConcurrencyStamp = "9e298d0c-e6c1-448f-b670-e5234e568cee",
+                            ConcurrencyStamp = "a84a7264-f360-4c6d-90ef-41539ec4225a",
                             Email = "femi.ibitolu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Babafemi",
@@ -119,7 +119,7 @@ namespace Havillah.Persistense.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Oluwaseyi",
                             NormalizedUserName = "FEMI.IBITOLU@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOx5mp9JBbQPJJGtnRs8wQg+iV+MnGadqfYPWPA5KMLfv7vkIVTRjGuRQPpoURA+Lw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPjBNELb+T6c0VRVZvh3H5oArMRF0zM3ptyOf4E4wJSh4VurW0c1Mu2vMyS2IUAMkw==",
                             PhoneNumber = "08122310370",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -162,15 +162,27 @@ namespace Havillah.Persistense.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Barcode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<int>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(90)");
+
                     b.Property<double>("BuyingPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("float(18)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Colours")
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("Datetime2");
@@ -182,7 +194,7 @@ namespace Havillah.Persistense.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -192,8 +204,18 @@ namespace Havillah.Persistense.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("ProductImageUrl")
+                    b.Property<byte[]>("ProductImage")
                         .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ProductImageExtension")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("ProductImageLength")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("ProductImageUrl")
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ProductName")
@@ -207,12 +229,35 @@ namespace Havillah.Persistense.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("float(18)");
 
+                    b.Property<string>("Sizes")
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int>("UnitOfMeasureId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Havillah.Core.Domain.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("Datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Havillah.Core.Domain.PurchaseParty", b =>
@@ -269,7 +314,7 @@ namespace Havillah.Persistense.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Stock");
+                    b.ToTable("Stocks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -310,14 +355,14 @@ namespace Havillah.Persistense.Migrations
                         new
                         {
                             Id = new Guid("ae215c6c-2f89-4646-a1cc-e3c1287bd6e4"),
-                            ConcurrencyStamp = "bbe0cb85-3318-432b-9f38-39255d9ec7ed",
+                            ConcurrencyStamp = "edd5d345-c128-4846-b6ea-d4b4a2d26e71",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("ec2bfe1e-0fa4-4900-a312-1848f542b61a"),
-                            ConcurrencyStamp = "b66b9c36-af9c-4872-900c-b6e86f18adcb",
+                            ConcurrencyStamp = "7fdb61a0-98a2-4dc5-a9c6-030d9b3cbfd5",
                             Name = "SalesPerson",
                             NormalizedName = "SALESPERSON"
                         });

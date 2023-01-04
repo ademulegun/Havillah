@@ -6,21 +6,21 @@ using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
 
-public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
+public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
 {
-    public string Email { get; set; } = null!;
+    public Guid Id { get; set; }
     
-    public class GetUserByEmailUseCaseQueryHandler: IRequestHandler<GetUserByEmailUseCaseQuery, Result<GetUserDto>>
+    public class GetUserByIdUseCaseQueryHandler: IRequestHandler<GetUserByIdUseCaseQuery, Result<GetUserDto>>
     {
         private readonly IRepository<ApplicationUser> _repository;
-        public GetUserByEmailUseCaseQueryHandler(IRepository<ApplicationUser> repository)
+        public GetUserByIdUseCaseQueryHandler(IRepository<ApplicationUser> repository)
         {
             _repository = repository;
         }
         
-        public async Task<Result<GetUserDto>> Handle(GetUserByEmailUseCaseQuery request, CancellationToken cancellationToken)
+        public async Task<Result<GetUserDto>> Handle(GetUserByIdUseCaseQuery request, CancellationToken cancellationToken)
         {
-            var user = await _repository.Find(predicate: x => x.Email == request.Email);
+            var user = await _repository.Find(predicate: x => x.Id == request.Id);
             if(string.IsNullOrEmpty(user.Email)) return Result.Fail<GetUserDto>("User does not exist");
             return Result.Ok<GetUserDto>(new GetUserDto()
             {

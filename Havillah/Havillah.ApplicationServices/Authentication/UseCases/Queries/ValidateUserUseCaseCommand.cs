@@ -1,40 +1,50 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Havillah.ApplicationServices.Authentication.Dto;
+using Havillah.ApplicationServices.Common.Options;
+using Havillah.ApplicationServices.Interfaces;
 using Havillah.Core.Domain;
 using Havillah.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
-namespace Havillah.ApplicationServices.Authentication.UseCases;
+namespace Havillah.ApplicationServices.Authentication.UseCases.Queries;
 
-public class ValidateUserUseCaseCommand: IRequest<Result<string>>
+public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
 {
     public string Email { get; set; }
     public string Password { get; set; }
     public bool RememberMe { get; set; }
     
-    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<string>>
+    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<Token>>
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
-        public ValidateUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        private readonly IRepository<ApplicationUser> _repository;
+        private readonly JwtSettings _jwtSettings;
+        public ValidateUserCommandHandler(UserManager<ApplicationUser> userManager, IConfiguration configuration, IRepository<ApplicationUser> repository,
+            IOptionsSnapshot<JwtSettings> jwtSettings)
         {
+            _jwtSettings = jwtSettings.Value;
             _userManager = userManager;
             _configuration = configuration;
+            _repository = repository;
         }
 
-        public async Task<Result<string>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Token>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
         {
-            var user = await _userManager.FindByEmailAsync(request.Email);
-            if (user == null && !await _userManager.CheckPasswordAsync(user, request.Password)) return Result.Fail<string>("Invalid username or password");
+            var user = await _repository.Find(x=>x.Email == request.Email.Trim());
+            var set = _configuration.GetSection("Jwt").GetSection("Issuer");
+            if (user == null && !await _userManager.CheckPasswordAsync(user, request.Password)) return Result.Fail<Token>("Invalid username or password");
             {
-                var issuer = _configuration["Jwt:Issuer"];
-                var audience = _configuration["Jwt:Audience"];
-                var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]);
+                var issuer = _jwtSettings.Issuer;
+                var audience = _jwtSettings.Audience;
+                var key = Encoding.ASCII.GetBytes(_jwtSettings.Key);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new[]
@@ -52,7 +62,11 @@ public class ValidateUserUseCaseCommand: IRequest<Result<string>>
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var stringToken = tokenHandler.WriteToken(token);
-                return Result.Ok<string>(stringToken);
+                return Result.Ok<Token>(new Token()
+                {
+                    Expiration = DateTime.UtcNow.AddMinutes(5).ToString(),
+                    TokenValue = stringToken
+                });
             }
         }
     }

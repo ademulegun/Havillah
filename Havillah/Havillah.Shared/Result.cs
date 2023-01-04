@@ -5,7 +5,7 @@ public class Result
         public bool IsSuccess { get; }
         public string Error { get; }
         public string Message { get; set; }
-        public string ResponseCode { get; }
+        public string ResponseCode { get; set; }
     
 
         protected Result(bool isSuccess, string error)
