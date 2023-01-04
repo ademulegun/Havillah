@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using HavillahWebUI_MVC.Models;
+using HavillahWebUI_MVC.Models.Authentication;
 
 namespace HavillahWebUI_MVC.Controllers;
 
@@ -11,11 +12,6 @@ public class HomeController : Controller
     public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-    }
-
-    public IActionResult Index()
-    {
-        return View();
     }
 
     public IActionResult Privacy()

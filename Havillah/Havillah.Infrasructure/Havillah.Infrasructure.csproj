@@ -10,4 +10,8 @@
       <Folder Include="JwtInfrastructure" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+    </ItemGroup>
+
 </Project>

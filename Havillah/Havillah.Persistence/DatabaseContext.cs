@@ -11,6 +11,8 @@ public class DatabaseContext: IdentityDbContext<ApplicationUser, IdentityRole<Gu
     public DatabaseContext(DbContextOptions<DatabaseContext> context): base(context) { }
     
     public DbSet<Product> Product { get; set; }
+    public DbSet<ProductCategory> Categories { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

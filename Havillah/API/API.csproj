@@ -11,6 +11,7 @@
         <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.12" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
+        <PackageReference Include="Microsoft.Azure.AppConfiguration.AspNetCore" Version="5.3.0-preview" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
           <PrivateAssets>all</PrivateAssets>
@@ -26,6 +27,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+      <ProjectReference Include="..\Havillah.Infrasructure\Havillah.Infrasructure.csproj" />
       <ProjectReference Include="..\Havillah.Persistence\Havillah.Persistence.csproj" />
     </ItemGroup>
 

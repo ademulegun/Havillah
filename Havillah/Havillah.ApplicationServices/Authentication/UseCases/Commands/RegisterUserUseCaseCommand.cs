@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
-namespace Havillah.ApplicationServices.Authentication.UseCases;
+namespace Havillah.ApplicationServices.Authentication.UseCases.Commands;
 
 public class RegisterUserUseCaseCommand: IRequest<Result<string>>
 {
@@ -15,6 +15,8 @@ public class RegisterUserUseCaseCommand: IRequest<Result<string>>
     public string FirstName { get; set; } = null!;
     public string MiddleName { get; set; } = null!;
     public string LastName { get; set; } = null!;
+    public string PhoneNumber { get; set; }
+    public string Address { get; set; }
 
     public class RegisterUserUseCaseCommandHandler: IRequestHandler<RegisterUserUseCaseCommand, Result<string>>
     {
@@ -39,14 +41,15 @@ public class RegisterUserUseCaseCommand: IRequest<Result<string>>
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
                 UserName = request.Email,
-                NormalizedUserName = request.Email.ToUpper()
+                NormalizedUserName = request.Email.ToUpper(),
+                PhoneNumber = request.PhoneNumber,
+                Address = request.Address
             };
             PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
             applicationUser.PasswordHash = ph.HashPassword(applicationUser, request.Password);
             await _repository.Add(applicationUser);
             var result = await _repository.Save();
-            if(result < 0)  return Result.Fail<string>("Unable to create user"); 
-            return Result.Ok<string>("User created successfully");
+            return result < 0 ? Result.Fail<string>("Unable to create user") : Result.Ok<string>("User created successfully");
         }
     }
 }
