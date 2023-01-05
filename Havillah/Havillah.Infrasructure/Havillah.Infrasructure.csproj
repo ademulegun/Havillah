@@ -11,7 +11,13 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
       <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+=======
+      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
+      <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.25.1" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
+>>>>>>> 56eb5a1 (trying)
     </ItemGroup>
 
 </Project>

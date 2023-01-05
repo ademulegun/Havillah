@@ -15,6 +15,15 @@
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
+=======
+      <Folder Include="Expense\UseCases\Handlers\" />
+      <Folder Include="Products" />
+      <Folder Include="Product\UseCases\GetProduct" />
+    </ItemGroup>
+
+    <ItemGroup>
+>>>>>>> 56eb5a1 (trying)
       <ProjectReference Include="..\Havillah.Core\Havillah.Core.csproj" />
       <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>

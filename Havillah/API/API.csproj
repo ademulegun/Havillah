@@ -29,6 +29,7 @@
       <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
       <ProjectReference Include="..\Havillah.Infrasructure\Havillah.Infrasructure.csproj" />
       <ProjectReference Include="..\Havillah.Persistence\Havillah.Persistence.csproj" />
+      <ProjectReference Include="..\HavillahWebUI_Server\HavillahWebUI_Server.csproj" />
     </ItemGroup>
 
 </Project>
