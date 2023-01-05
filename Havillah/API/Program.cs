@@ -8,6 +8,11 @@ using Havillah.ApplicationServices.Category.UseCases.AddCategory.Handler;
 using Havillah.ApplicationServices.Category.UseCases.Dto;
 using Havillah.ApplicationServices.Category.UseCases.GetCategories.Handler;
 using Havillah.ApplicationServices.Common.Options;
+using Havillah.ApplicationServices.Authentication.UseCases;
+using Havillah.ApplicationServices.Expense.Dto;
+using Havillah.ApplicationServices.Expense.UseCases.Commands;
+using Havillah.ApplicationServices.Expense.UseCases.Queries;
+using Havillah.ApplicationServices.Expense.ViewModels;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
@@ -284,6 +289,27 @@ app.MapGet("/product/{id}", async (Guid id, IMediator mediator) =>
     .Produces<Result<GetProductDto>>()
     .Produces<Result<GetProductDto>>(StatusCodes.Status400BadRequest)
     .Produces<Result<GetProductDto>>(StatusCodes.Status404NotFound);
+
+#endregion
+
+#region Expense
+app.MapPut("/expense", async ([FromBody] UpdateExpense model, IMediator mediator ) =>
+{
+    var result = await mediator.Send(new UpdateExpenseUseCaseCommand() { UpdateExpense = model });
+    return result;
+}).WithName("UpdateExpense").WithTags("Expense");
+
+app.MapPost("/expense", async ([FromBody] AddExpenseDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new AddExpenseCommand() { AddExpenseDto = model });
+    return Results.Ok(result); 
+}).WithName("AddExpense").WithTags("Expense");
+
+app.MapGet("/expense", async ([FromBody] GetExpenseDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new GetExpensesById());
+    return Results.Ok(result);
+}).WithName("GetExpense").WithTags("Expense");
 
 #endregion
 
