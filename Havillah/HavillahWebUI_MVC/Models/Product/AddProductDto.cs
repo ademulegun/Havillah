@@ -1,10 +1,9 @@
-using System;
+using Microsoft.AspNetCore.Http;
 
-namespace Havillah.ApplicationServices.Product.UseCases.GetProduct.Dto;
+namespace HavillahWebUI_MVC.Models.Product;
 
-public class GetProductDto
+public class AddProductDto
 {
-    public string Id { get; set; }
     public string ProductName { get; set; }
     public string ProductCode { get; set; }
     public string Barcode { get; set; }
@@ -14,15 +13,12 @@ public class GetProductDto
     public double DefaultSellingPrice { get; set; } = 0.0;
     public int BranchId { get; set; }
     public int CurrencyId { get; set; }
+    public int Quantity { get; set; }
+    public IFormFile ImageFile { get; set; }
     public byte[] ProductImage { get; set; }
     public long ProductImageLength { get; set; }
     public string ProductImageExtension { get; set; }
-    public DateTime DateAdded { get; set; }
     public string BrandName { get; set; }
     public string Sizes { get; set; }
     public string Colours { get; set; }
-<<<<<<< HEAD
-    public int Quantity { get; set; }
-=======
->>>>>>> e34493e (modified espense with constructor)
 }
