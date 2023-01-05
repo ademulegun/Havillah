@@ -5,6 +5,7 @@ using Havillah.Shared;
 using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
@@ -17,12 +18,16 @@ public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
         public GetUserByIdUseCaseQueryHandler(IRepository<ApplicationUser> repository)
 =======
 public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
+=======
+public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
+>>>>>>> e34493e (modified espense with constructor)
 {
-    public string Email { get; set; } = null!;
+    public Guid Id { get; set; }
     
-    public class GetUserByEmailUseCaseQueryHandler: IRequestHandler<GetUserByEmailUseCaseQuery, Result<GetUserDto>>
+    public class GetUserByIdUseCaseQueryHandler: IRequestHandler<GetUserByIdUseCaseQuery, Result<GetUserDto>>
     {
         private readonly IRepository<ApplicationUser> _repository;
+<<<<<<< HEAD
         public GetUserByEmailUseCaseQueryHandler(IRepository<ApplicationUser> repository)
 >>>>>>> 56eb5a1 (trying)
         {
@@ -38,6 +43,15 @@ public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
         {
             var user = await _repository.Find(predicate: x => x.Email == request.Email);
 >>>>>>> 56eb5a1 (trying)
+=======
+        public GetUserByIdUseCaseQueryHandler(IRepository<ApplicationUser> repository)
+        {
+            _repository = repository;
+        }
+        public async Task<Result<GetUserDto>> Handle(GetUserByIdUseCaseQuery request, CancellationToken cancellationToken)
+        {
+            var user = await _repository.Find(predicate: x => x.Id == request.Id);
+>>>>>>> e34493e (modified espense with constructor)
             if(string.IsNullOrEmpty(user.Email)) return Result.Fail<GetUserDto>("User does not exist");
             return Result.Ok<GetUserDto>(new GetUserDto()
             {

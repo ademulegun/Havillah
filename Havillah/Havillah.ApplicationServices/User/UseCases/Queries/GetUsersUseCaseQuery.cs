@@ -7,6 +7,7 @@ using MediatR;
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
 {
 
@@ -16,12 +17,15 @@ public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
         public GetUsersUseCaseQueryHandler(IRepository<ApplicationUser> repository)
 =======
 public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
+=======
+public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
+>>>>>>> e34493e (modified espense with constructor)
 {
-    public string Email { get; set; } = null!;
-    
-    public class GetUserByEmailUseCaseQueryHandler: IRequestHandler<GetUserByEmailUseCaseQuery, Result<GetUserDto>>
+
+    public class GetUsersUseCaseQueryHandler : IRequestHandler<GetUsersUseCaseQuery, Result<List<GetUserDto>>>
     {
         private readonly IRepository<ApplicationUser> _repository;
+<<<<<<< HEAD
         public GetUserByEmailUseCaseQueryHandler(IRepository<ApplicationUser> repository)
 >>>>>>> 56eb5a1 (trying)
         {
@@ -49,11 +53,22 @@ public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
             return Result.Ok(listOUsers);
 =======
         public async Task<Result<GetUserDto>> Handle(GetUserByEmailUseCaseQuery request, CancellationToken cancellationToken)
+=======
+        public GetUsersUseCaseQueryHandler(IRepository<ApplicationUser> repository)
         {
-            var user = await _repository.Find(predicate: x => x.Email == request.Email);
-            if(string.IsNullOrEmpty(user.Email)) return Result.Fail<GetUserDto>("User does not exist");
-            return Result.Ok<GetUserDto>(new GetUserDto()
+            _repository = repository;
+        }
+
+        public async Task<Result<List<GetUserDto>>> Handle(GetUsersUseCaseQuery request, CancellationToken cancellationToken)
+>>>>>>> e34493e (modified espense with constructor)
+        {
+            List<GetUserDto> listOUsers = new List<GetUserDto>();
+            var users = await _repository.GetAll();
+            var applicationUsers = users as ApplicationUser[] ?? users.ToArray();
+            if (!applicationUsers.Any()) return Result.Fail<List<GetUserDto>>("No user found");
+            foreach (var user in applicationUsers)
             {
+<<<<<<< HEAD
                 UserName = user.UserName,
                 Email = user.Email,
                 FirstName = user.FirstName,
@@ -62,6 +77,19 @@ public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
             });
 >>>>>>> 56eb5a1 (trying)
             
+=======
+                listOUsers.Add(new GetUserDto()
+                {
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    MiddleName = user.MiddleName
+                });
+            }
+            return Result.Ok(listOUsers);
+
+>>>>>>> e34493e (modified espense with constructor)
         }
-    }   
+    }
 }

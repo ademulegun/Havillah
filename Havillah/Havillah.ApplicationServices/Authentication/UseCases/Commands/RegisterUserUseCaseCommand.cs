@@ -6,10 +6,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 namespace Havillah.ApplicationServices.Authentication.UseCases.Commands;
 =======
 namespace Havillah.ApplicationServices.Authentication.UseCases;
 >>>>>>> 56eb5a1 (trying)
+=======
+
+namespace Havillah.ApplicationServices.Authentication.UseCases.Commands;
+>>>>>>> e34493e (modified espense with constructor)
 
 public class RegisterUserUseCaseCommand: IRequest<Result<string>>
 {
@@ -20,10 +25,15 @@ public class RegisterUserUseCaseCommand: IRequest<Result<string>>
     public string MiddleName { get; set; } = null!;
     public string LastName { get; set; } = null!;
 <<<<<<< HEAD
+<<<<<<< HEAD
     public string PhoneNumber { get; set; }
     public string Address { get; set; }
 =======
 >>>>>>> 56eb5a1 (trying)
+=======
+    public string PhoneNumber { get; set; }
+    public string Address { get; set; }
+>>>>>>> e34493e (modified espense with constructor)
 
     public class RegisterUserUseCaseCommandHandler: IRequestHandler<RegisterUserUseCaseCommand, Result<string>>
     {
@@ -49,23 +59,33 @@ public class RegisterUserUseCaseCommand: IRequest<Result<string>>
                 LastName = request.LastName,
                 UserName = request.Email,
 <<<<<<< HEAD
+<<<<<<< HEAD
                 NormalizedUserName = request.Email.ToUpper(),
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address
 =======
                 NormalizedUserName = request.Email.ToUpper()
 >>>>>>> 56eb5a1 (trying)
+=======
+                NormalizedUserName = request.Email.ToUpper(),
+                PhoneNumber = request.PhoneNumber,
+                Address = request.Address
+>>>>>>> e34493e (modified espense with constructor)
             };
             PasswordHasher<ApplicationUser> ph = new PasswordHasher<ApplicationUser>();
             applicationUser.PasswordHash = ph.HashPassword(applicationUser, request.Password);
             await _repository.Add(applicationUser);
             var result = await _repository.Save();
 <<<<<<< HEAD
+<<<<<<< HEAD
             return result < 0 ? Result.Fail<string>("Unable to create user") : Result.Ok<string>("User created successfully");
 =======
             if(result < 0)  return Result.Fail<string>("Unable to create user"); 
             return Result.Ok<string>("User created successfully");
 >>>>>>> 56eb5a1 (trying)
+=======
+            return result < 0 ? Result.Fail<string>("Unable to create user") : Result.Ok<string>("User created successfully");
+>>>>>>> e34493e (modified espense with constructor)
         }
     }
 }

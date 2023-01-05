@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Havillah.Persistence;
 
-public class DatabaseContext: IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+public class DatabaseContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
     public DatabaseContext(DbContextOptions<DatabaseContext> context) : base(context)
     {
