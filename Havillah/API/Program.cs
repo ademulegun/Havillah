@@ -10,10 +10,6 @@ using Havillah.ApplicationServices.Authentication.UseCases;
 using Havillah.ApplicationServices.Expense.Dto;
 using Havillah.ApplicationServices.Expense.UseCases.Commands;
 using Havillah.ApplicationServices.Expense.UseCases.Queries;
-using Havillah.ApplicationServices.Authentication.Dto;
-using Havillah.ApplicationServices.Authentication.UseCases.Commands;
-using Havillah.ApplicationServices.Authentication.UseCases.Queries;
-using Havillah.ApplicationServices.Common.Options;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
@@ -334,6 +330,4 @@ app.MapGet("/getExpenses", async (IMediator mediator) =>
 .Produces<List<GetExpenseDto>>(StatusCodes.Status200OK)
 .Produces<List<GetExpenseDto>>(StatusCodes.Status400BadRequest);
 #endregion
-
-
 app.Run();

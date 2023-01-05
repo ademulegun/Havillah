@@ -5,7 +5,6 @@ using Havillah.Shared;
 using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
-
 public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
 {
 
@@ -16,7 +15,6 @@ public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
         {
             _repository = repository;
         }
-
         public async Task<Result<List<GetUserDto>>> Handle(GetUsersUseCaseQuery request, CancellationToken cancellationToken)
         {
             List<GetUserDto> listOUsers = new List<GetUserDto>();
@@ -35,7 +33,6 @@ public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
                 });
             }
             return Result.Ok(listOUsers);
-
         }
     }
 }

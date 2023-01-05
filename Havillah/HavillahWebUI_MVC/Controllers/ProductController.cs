@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ba8a519 (trying)
 
 namespace HavillahWebUI_MVC.Controllers;
 
@@ -9,6 +12,7 @@ public class Product : Controller
     public IActionResult Index()
     {
         return View();
+<<<<<<< HEAD
 =======
 using System.Diagnostics;
 using Havillah.Shared.Product;
@@ -94,5 +98,7 @@ public class ProductController : Controller
         };
         return PartialView("_ProductPartialView", model.ProductRoot);   
 >>>>>>> b18b03624866f944a75dad9ea6f579c65b37869b
+=======
+>>>>>>> ba8a519 (trying)
     }
 }

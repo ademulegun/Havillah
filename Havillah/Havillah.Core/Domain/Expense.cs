@@ -37,21 +37,21 @@ namespace Havillah.Core.Domain
         }
         public Expense SetDescription(string description)
         {
-            if (string.IsNullOrEmpty(description)) return this;
+            if (description == null) return this;
             this.Description = description;
             return this;
         }
         
         public Expense SetExpenditure(decimal expenditure)
         {
-            if (decimal.Zero == 0) return this;
+            if (expenditure == null) return this;
             this.Expenditure = expenditure;
             return this;
         }
 
         public Expense SetTitle(string title)
         {
-            if(string.IsNullOrEmpty(title)) return this;
+            if(title == null) return this;
             this.Title = title;
             return this;
         }

@@ -21,7 +21,6 @@ public class EditUserUseCaseCommand: IRequest<Result>
         {
             _repository = repository;   
         }
-
         public async Task<Result> Handle(EditUserUseCaseCommand request, CancellationToken cancellationToken)
         {
             var user = await _repository.Find(predicate: x => x.Id == request.Id);

@@ -19,7 +19,6 @@ public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
     public string Email { get; set; }
     public string Password { get; set; }
     public bool RememberMe { get; set; }
-    
     public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<Token>>
     {
         private readonly UserManager<ApplicationUser> _userManager;

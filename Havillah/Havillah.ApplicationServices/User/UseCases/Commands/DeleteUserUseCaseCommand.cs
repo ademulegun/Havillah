@@ -3,9 +3,7 @@ using Havillah.ApplicationServices.User.Dto;
 using Havillah.Core.Domain;
 using Havillah.Shared;
 using MediatR;
-
 namespace Havillah.ApplicationServices.User.UseCases.Commands;
-
 public class DeleteUserUseCaseCommand : IRequest<Result>
 {
     public Guid Id { get; set; }
@@ -17,7 +15,6 @@ public class DeleteUserUseCaseCommand : IRequest<Result>
         {
             _repository = repository;
         }
-
         public async Task<Result> Handle(DeleteUserUseCaseCommand request, CancellationToken cancellationToken)
         {
             var user = await _repository.Find(predicate: x => x.Id == request.Id);
