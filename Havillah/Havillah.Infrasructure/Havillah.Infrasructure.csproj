@@ -15,6 +15,7 @@
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.25.1" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
+      <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
     </ItemGroup>
 
 </Project>

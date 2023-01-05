@@ -14,12 +14,38 @@ using Microsoft.IdentityModel.Tokens;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace Havillah.ApplicationServices.Authentication.UseCases.Queries;
+<<<<<<< HEAD
 public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
+=======
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
+=======
+public class ValidateUserUseCaseCommand: IRequest<Result<string>>
+>>>>>>> 56eb5a1 (trying)
+=======
+public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
+>>>>>>> e34493e (modified espense with constructor)
+>>>>>>> 2ac5f8b (rebase done and dusted)
 {
     public string Email { get; set; }
     public string Password { get; set; }
     public bool RememberMe { get; set; }
+<<<<<<< HEAD
     public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<Token>>
+=======
+    
+<<<<<<< HEAD
+<<<<<<< HEAD
+    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<Token>>
+=======
+    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<string>>
+>>>>>>> 56eb5a1 (trying)
+=======
+    public class ValidateUserCommandHandler: IRequestHandler<ValidateUserUseCaseCommand, Result<Token>>
+>>>>>>> e34493e (modified espense with constructor)
+>>>>>>> 2ac5f8b (rebase done and dusted)
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -33,7 +59,20 @@ public class ValidateUserUseCaseCommand: IRequest<Result<Token>>
             _configuration = configuration;
             _repository = repository;
         }
+<<<<<<< HEAD
         public async Task<Result<Token>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
+=======
+<<<<<<< HEAD
+
+<<<<<<< HEAD
+        public async Task<Result<Token>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
+=======
+        public async Task<Result<string>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
+>>>>>>> 56eb5a1 (trying)
+=======
+        public async Task<Result<Token>> Handle(ValidateUserUseCaseCommand request, CancellationToken cancellationToken)
+>>>>>>> e34493e (modified espense with constructor)
+>>>>>>> 2ac5f8b (rebase done and dusted)
         {
             var user = await _repository.Find(x=>x.Email == request.Email.Trim());
             var set = _configuration.GetSection("Jwt").GetSection("Issuer");

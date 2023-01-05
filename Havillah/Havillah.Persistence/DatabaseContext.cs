@@ -27,7 +27,6 @@ public class DatabaseContext : IdentityDbContext<ApplicationUser, IdentityRole<G
             throw;
         }
     }
-    
     public DbSet<Product> Product { get; set; }
     public DbSet<ProductCategory> Categories { get; set; }
     public DbSet<Stock> Stocks { get; set; }
