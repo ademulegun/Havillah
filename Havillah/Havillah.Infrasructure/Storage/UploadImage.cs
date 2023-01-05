@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.Shared;
 
@@ -11,4 +12,11 @@ public class UploadImage: IUploadImageToStorage
         await Task.Delay(1000);
         return Result.Ok<string>("");
     }
+=======
+namespace Havillah.Infrasructure.Storage;
+
+public class UploadImage
+{
+    
+>>>>>>> 56eb5a1 (trying)
 }

@@ -6,6 +6,7 @@ using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
 
+<<<<<<< HEAD
 public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
 {
 
@@ -13,10 +14,21 @@ public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
     {
         private readonly IRepository<ApplicationUser> _repository;
         public GetUsersUseCaseQueryHandler(IRepository<ApplicationUser> repository)
+=======
+public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
+{
+    public string Email { get; set; } = null!;
+    
+    public class GetUserByEmailUseCaseQueryHandler: IRequestHandler<GetUserByEmailUseCaseQuery, Result<GetUserDto>>
+    {
+        private readonly IRepository<ApplicationUser> _repository;
+        public GetUserByEmailUseCaseQueryHandler(IRepository<ApplicationUser> repository)
+>>>>>>> 56eb5a1 (trying)
         {
             _repository = repository;
         }
         
+<<<<<<< HEAD
         public async Task<Result<List<GetUserDto>>> Handle(GetUsersUseCaseQuery request, CancellationToken cancellationToken)
         {
             List<GetUserDto> listOUsers = new List<GetUserDto>();
@@ -35,6 +47,20 @@ public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
                 });
             }
             return Result.Ok(listOUsers);
+=======
+        public async Task<Result<GetUserDto>> Handle(GetUserByEmailUseCaseQuery request, CancellationToken cancellationToken)
+        {
+            var user = await _repository.Find(predicate: x => x.Email == request.Email);
+            if(string.IsNullOrEmpty(user.Email)) return Result.Fail<GetUserDto>("User does not exist");
+            return Result.Ok<GetUserDto>(new GetUserDto()
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                MiddleName = user.MiddleName
+            });
+>>>>>>> 56eb5a1 (trying)
             
         }
     }   

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.User.Dto;
 using Havillah.Core.Domain;
@@ -33,4 +34,11 @@ public class GetUserByEmailUseCaseQuery: IRequest<Result<GetUserDto>>
             
         }
     }   
+=======
+namespace Havillah.ApplicationServices.User.UseCases.Queries;
+
+public class GetUserByEmailUseCaseQuery
+{
+    
+>>>>>>> 56eb5a1 (trying)
 }
