@@ -16,6 +16,7 @@
 
     <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <Folder Include="Expense\UseCases\Handlers\" />
       <Folder Include="Products" />
@@ -24,6 +25,9 @@
 
     <ItemGroup>
 >>>>>>> 56eb5a1 (trying)
+=======
+		
+>>>>>>> e34493e (modified espense with constructor)
       <ProjectReference Include="..\Havillah.Core\Havillah.Core.csproj" />
       <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>

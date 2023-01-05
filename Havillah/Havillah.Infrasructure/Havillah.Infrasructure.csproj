@@ -12,12 +12,16 @@
 
     <ItemGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
       <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
 =======
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
       <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.25.1" />
       <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
 >>>>>>> 56eb5a1 (trying)
+=======
+      <ProjectReference Include="..\Havillah.ApplicationServices\Havillah.ApplicationServices.csproj" />
+>>>>>>> e34493e (modified espense with constructor)
     </ItemGroup>
 
 </Project>

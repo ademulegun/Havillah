@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Havillah.Persistence;
 
-public class DatabaseContext: IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+public class DatabaseContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
 {
-    public DatabaseContext(DbContextOptions<DatabaseContext> context): base(context) { }
-    
+    public DatabaseContext(DbContextOptions<DatabaseContext> context) : base(context) { }
+
     public DbSet<Product> Product { get; set; }
     public DbSet<ProductCategory> Categories { get; set; }
     public DbSet<Stock> Stocks { get; set; }

@@ -6,6 +6,10 @@ using Havillah.ApplicationServices.Expense.Dto;
 using Havillah.ApplicationServices.Expense.UseCases.Commands;
 using Havillah.ApplicationServices.Expense.UseCases.Queries;
 using Havillah.ApplicationServices.Expense.ViewModels;
+using Havillah.ApplicationServices.Authentication.Dto;
+using Havillah.ApplicationServices.Authentication.UseCases.Commands;
+using Havillah.ApplicationServices.Authentication.UseCases.Queries;
+using Havillah.ApplicationServices.Common.Options;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
@@ -27,6 +31,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;

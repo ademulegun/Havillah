@@ -8,6 +8,16 @@ namespace Havillah.Core.Domain
 {
     public class Expense: BaseEntity<Guid>
     {
+        private Expense(Guid id, string title, decimal expenditure, DateTime expenditureDate, string contractedBy, string description)
+        {
+            Id = id;
+            Title = title;
+            Expenditure = expenditure;
+            ExpenditureDate = expenditureDate;
+            ContractedBy = contractedBy;
+            Description = description;
+        }
+
         protected Expense() { }
         public string Title { get; set; }
         public List<Entity> Entities { get;set; } 
@@ -21,7 +31,7 @@ namespace Havillah.Core.Domain
             public static Expense Create(Guid id, string Title, decimal Expenditure, DateTime ExpenditureDate,
                 string ContractedBy, string Description)
             {
-                return new Product(id, Title, Expenditure, ExpenditureDate, productImageUrl, unitOfMeasureId);
+                return new Expense(id, Title, Expenditure, ExpenditureDate, ContractedBy, Description);
             }
         }
     }
