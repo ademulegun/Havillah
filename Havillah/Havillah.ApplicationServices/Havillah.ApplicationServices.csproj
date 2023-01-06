@@ -17,6 +17,7 @@
     <ItemGroup>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       <Folder Include="Expense\UseCases\Handlers\" />
       <Folder Include="Products" />
@@ -28,12 +29,18 @@
 =======
 		
 >>>>>>> e34493e (modified espense with constructor)
+=======
+>>>>>>> 038a736 (modified things in espense feature)
       <ProjectReference Include="..\Havillah.Core\Havillah.Core.csproj" />
       <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>
+<<<<<<< HEAD
       <Folder Include="Category\UseCases\AddCategory\Dto" />
+=======
+      <Folder Include="Expensee\" />
+>>>>>>> 038a736 (modified things in espense feature)
     </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using Havillah.ApplicationServices.Expense.ViewModels;
+﻿using Havillah.ApplicationServices.Expense.Dto;
+using Havillah.ApplicationServices.Expense.ViewModels;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.Core.Domain;
 using Havillah.Shared;
@@ -20,12 +21,12 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
         public DateTime ExpenditureDate { get; set; }
         public string ContractedBy { get; set; }
         public string Description { get; private set; }
-        //public UpdateExpense UpdateExpense { get; set; }
+        public UpdateExpenseDto UpdateExpenseDto { get; set; }
     }
 
     public class UpdateExpenseUseCaseCommandHandler: IRequestHandler<UpdateExpenseUseCaseCommand, Result>
     {
-        public UpdateExpense UpdateExpense { get; set; }
+        //public UpdateExpense UpdateExpense { get; set; }
         private readonly IRepository<Core.Domain.Expense> _repository;
         public UpdateExpenseUseCaseCommandHandler(IRepository<Core.Domain.Expense> repository)
         {
