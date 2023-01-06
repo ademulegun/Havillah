@@ -15,6 +15,8 @@ using Havillah.ApplicationServices.Authentication.Dto;
 using Havillah.ApplicationServices.Authentication.UseCases.Commands;
 using Havillah.ApplicationServices.Authentication.UseCases.Queries;
 using Havillah.ApplicationServices.Common.Options;
+using Havillah.ApplicationServices.Expense.Dto;
+using Havillah.ApplicationServices.Expense.ViewModels;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
