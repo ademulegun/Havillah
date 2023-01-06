@@ -28,6 +28,7 @@
     <ItemGroup>
       <Folder Include="Category\UseCases\GetCategory\Handler" />
       <Folder Include="Category\UseCases\AddCategory\Dto" />
+      <Folder Include="Expensee\" />
     </ItemGroup>
 
 </Project>
