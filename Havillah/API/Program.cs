@@ -272,28 +272,53 @@ app.MapGet("/product/{id}", async (Guid id, IMediator mediator) =>
     .Produces<Result<GetProductDto>>()
     .Produces<Result<GetProductDto>>(StatusCodes.Status400BadRequest)
     .Produces<Result<GetProductDto>>(StatusCodes.Status404NotFound);
-
 #endregion
 
 #region Expense
-app.MapPut("/expense", async ([FromBody] UpdateExpense model, IMediator mediator ) =>
+app.MapPut("/expense", async ([FromBody] UpdateExpenseDto model, IMediator mediator) =>
 {
-    var result = await mediator.Send(new UpdateExpenseUseCaseCommand() { UpdateExpense = model });
-    return result;
-}).WithName("UpdateExpense").WithTags("Expense");
+    var result = await mediator.Send(new UpdateExpenseUseCaseCommand()
+    {
+        Title = model.Title,
+        Expenditure = model.Expenditure,
+        ExpenditureDate = model.ExpenditureDate,
+        ContractedBy = model.ContractedBy
+    });
+    return !result.IsSuccess ? Results.BadRequest(result) : Results.Ok(result);
+}).WithName("UpdateExpense").WithTags("Expense")
+.Produces<Result>(StatusCodes.Status200OK)
+.Produces<Result>(StatusCodes.Status400BadRequest);
 
 app.MapPost("/expense", async ([FromBody] AddExpenseDto model, IMediator mediator) =>
 {
     var result = await mediator.Send(new AddExpenseCommand() { AddExpenseDto = model });
-    return Results.Ok(result); 
+    return Results.Ok(result);
 }).WithName("AddExpense").WithTags("Expense");
 
-app.MapGet("/expense", async ([FromBody] GetExpenseDto model, IMediator mediator) =>
+app.MapGet("/expense/{id:guid}", async (Guid id, IMediator mediator) =>
 {
-    var result = await mediator.Send(new GetExpensesById());
-    return Results.Ok(result);
-}).WithName("GetExpense").WithTags("Expense");
+    var result = await mediator.Send(new GetExpensesByIdUseCaseQuery() { Id = id });
+    return !result.IsSuccess ? Results.BadRequest(result.Value) : Results.Ok(result.Value);
+}).WithName("GetExpenseById").WithTags("Expense")
+.Produces(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status400BadRequest);
 
+app.MapGet("/expense/{date}", async (DateTime ExpenditureDate, IMediator mediator) =>
+{
+    var result = await mediator.Send(new GetExpensesByDateUseCaseQuery() { ExpenditureDate = ExpenditureDate });
+    return !result.IsSuccess ? Results.BadRequest(result.Value) : Results.Ok(result.Value);
+}).WithName("GetExpenseByDate").WithTags("Expense")
+.Produces(StatusCodes.Status200OK)
+.Produces(StatusCodes.Status400BadRequest);
+
+app.MapGet("/getAllExpenses", async (IMediator mediator) =>
+{
+    var expenses = await mediator.Send(new GetExpensesUseCaseQuery());
+    return !expenses.IsSuccess ? Results.BadRequest(expenses.Value) : Results.Ok(expenses.Value);
+}).WithName("GetAllExpenses").WithTags("Expense")
+.Produces<List<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<List<GetExpenseDto>>(StatusCodes.Status400BadRequest);
 #endregion
+
 
 app.Run();
