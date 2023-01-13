@@ -81,6 +81,6 @@ public class ProductController : Controller
         {
             ProductRoot = await _productService.GetProduct(id)
         };
-        return PartialView("_ProductPartialView", model.ProductRoot);   
+        return Json(model);   
     }
 }

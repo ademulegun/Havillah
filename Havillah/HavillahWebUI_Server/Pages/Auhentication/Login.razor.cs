@@ -16,11 +16,11 @@ public partial class Login
     private async Task Authenticate()
     {
         var login = new LoginDto() { Username = _loginDto.Username, Password = _loginDto.Password };
-        // var loginResult = await AuthenticationService.Login(login);
-        // if (!string.IsNullOrEmpty(loginResult.Token))
-        // {
-        //     NavigationManager.NavigateTo("/product/products", true);
-        // }
-        NavigationManager.NavigateTo("product", true);
+        var loginResult = await AuthenticationService.Login(login);
+        if (!string.IsNullOrEmpty(loginResult.Token))
+        { 
+            NavigationManager?.NavigateTo("/products", true);
+        }
+        NavigationManager?.NavigateTo("/", true);
     }
 }

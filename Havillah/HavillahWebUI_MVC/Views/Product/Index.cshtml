@@ -126,8 +126,7 @@
                     <td>
                         <ul class="list-inline hstack gap-2 mb-0">
                             <li class="list-inline-item" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="View">
-                                <a class="view-item-btn" data-bs-toggle="modal" data-bs-target="#productModal" 
-                                   asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.id">
+                                <a class="view-item-btn" data-bs-toggle="modal" data-bs-target="#productModal" onclick="displayProduct(@product.id)">
                                     <i class="ri-eye-fill align-bottom text-muted"></i>
                                 </a>
                             </li>
@@ -266,7 +265,7 @@
 @*     </div> *@
 @* </div> *@
 @await Html.PartialAsync("_AddProductPartialView");
-@await Html.PartialAsync("_ProductPartialView", Model.ProductRoot);
+@await Html.PartialAsync("_ProductPartialView", Model);
 <!--end modal-->
 
 <!-- Modal -->
@@ -323,3 +322,26 @@
 </footer>
 </div>
 <!-- end main content-->
+
+
+@section Scripts
+{
+    <script>
+       let displayProduct = function (id){
+          $.ajax({
+              url: '/Product/GetProduct/' + id,
+              type: 'GET',
+              data: {id:id},
+              success: function(product) {
+                 $("#productModal").modal('show');
+                 $("#productName").val(product.productName);
+                 $("#price").val(product.defaultSellingPrice);
+              },
+              error: function (xhr, status) 
+              {
+                   alert(status);
+              }    
+          })
+       };
+    </script>
+}

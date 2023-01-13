@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using HavillahWebUI_Server.Contracts;
+using HavillahWebUI_Server.Data;
 using HavillahWebUI_Server.Middleware;
 using Microsoft.AspNetCore.Components.Authorization;
 
