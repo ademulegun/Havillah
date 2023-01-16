@@ -5,9 +5,12 @@ using Havillah.Shared;
 using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Commands;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+>>>>>>> 76516a4 (few changes done here for dev)
 public class EditUserUseCaseCommand: IRequest<Result>
 {
     public Guid Id { get; set; }
@@ -55,6 +58,7 @@ public class EditUserUseCaseCommand : IRequest<Result>
             user.LastName = request.LastName;
             var iseUseUpdated = await _repository.Save();
             return iseUseUpdated < 1 ? Result.Fail("Unable to update user") : Result.Ok("Successfully updated user");
+<<<<<<< HEAD
 =======
         public async Task<Result<GetUserDto>> Handle(GetUserByEmailUseCaseQuery request, CancellationToken cancellationToken)
         {
@@ -89,4 +93,8 @@ public class EditUserUseCaseCommand : IRequest<Result>
 >>>>>>> e34493e (modified espense with constructor)
         }
     }
+=======
+        }
+    }   
+>>>>>>> 76516a4 (few changes done here for dev)
 }
