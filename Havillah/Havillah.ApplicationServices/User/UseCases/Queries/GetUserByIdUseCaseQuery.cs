@@ -6,8 +6,12 @@ using MediatR;
 
 namespace Havillah.ApplicationServices.User.UseCases.Queries;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
+=======
+
+>>>>>>> 76516a4 (few changes done here for dev)
 public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
 {
     public Guid Id { get; set; }
@@ -35,6 +39,9 @@ public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
         }
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 76516a4 (few changes done here for dev)
         public async Task<Result<GetUserDto>> Handle(GetUserByIdUseCaseQuery request, CancellationToken cancellationToken)
         {
             var user = await _repository.Find(predicate: x => x.Id == request.Id);

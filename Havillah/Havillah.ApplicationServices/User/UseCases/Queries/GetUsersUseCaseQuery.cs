@@ -8,6 +8,9 @@ namespace Havillah.ApplicationServices.User.UseCases.Queries;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 76516a4 (few changes done here for dev)
 public class GetUsersUseCaseQuery: IRequest<Result<List<GetUserDto>>>
 {
 
@@ -33,6 +36,9 @@ public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
         }
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 76516a4 (few changes done here for dev)
         public async Task<Result<List<GetUserDto>>> Handle(GetUsersUseCaseQuery request, CancellationToken cancellationToken)
         {
             List<GetUserDto> listOUsers = new List<GetUserDto>();
@@ -51,6 +57,7 @@ public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
                 });
             }
             return Result.Ok(listOUsers);
+<<<<<<< HEAD
 =======
         public async Task<Result<GetUserDto>> Handle(GetUserByEmailUseCaseQuery request, CancellationToken cancellationToken)
 =======
@@ -92,4 +99,9 @@ public class GetUsersUseCaseQuery : IRequest<Result<List<GetUserDto>>>
 >>>>>>> e34493e (modified espense with constructor)
         }
     }
+=======
+            
+        }
+    }   
+>>>>>>> 76516a4 (few changes done here for dev)
 }
