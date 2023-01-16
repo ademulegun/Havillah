@@ -4,6 +4,7 @@ using System.Text;
 using Havillah.ApplicationServices.Authentication.Dto;
 using Havillah.ApplicationServices.Authentication.UseCases.Commands;
 using Havillah.ApplicationServices.Authentication.UseCases.Queries;
+using Havillah.ApplicationServices.Category.UseCases.AddCategory.Handler;
 using Havillah.ApplicationServices.Common.Options;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
@@ -11,6 +12,8 @@ using Havillah.ApplicationServices.Product.AddProduct.Handlers;
 using Havillah.ApplicationServices.Product.UseCases.AddProduct.Dto;
 using Havillah.ApplicationServices.Product.UseCases.GetProduct.Dto;
 using Havillah.ApplicationServices.Product.UseCases.GetProduct.Handlers;
+using Havillah.ApplicationServices.Product.UseCases.GetProducts.Handlers;
+using Havillah.ApplicationServices.Product.UseCases.UpdateProduct.Handlers;
 using Havillah.ApplicationServices.User.Dto;
 using Havillah.ApplicationServices.User.UseCases.Commands;
 using Havillah.ApplicationServices.User.UseCases.Queries;
@@ -217,6 +220,16 @@ app.MapGet("/deleteUser", async (Guid id, IMediator mediator) =>
 
 #endregion
 
+#region Category
+
+app.MapPost("/category", async([FromBody]ProductCategory category, IMediator mediator) =>
+{
+    var result = await mediator.Send(new AddCategoryCommand() { Name = category.Name });
+    return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result);
+}).WithName("AddCategory").WithTags("Category");
+
+#endregion
+
 #region Product
 
 app.MapPost("/product", async ([FromBody] Havillah.Shared.Product.AddProductDto model, IMediator mediator) =>
@@ -224,6 +237,15 @@ app.MapPost("/product", async ([FromBody] Havillah.Shared.Product.AddProductDto 
         var result = await mediator.Send(new AddProductCommand() { AddProductDto = model });
         return !result.IsSuccess ? Results.BadRequest(result) : Results.Ok(result);
     }).WithName("AddProduct").WithTags("Product")
+    .Produces<Result>()
+    .Produces<Result>(StatusCodes.Status400BadRequest);
+
+app.MapPost("/updateProduct", async ([FromBody] Havillah.Shared.Product.UpdateProductDto model, IMediator mediator) =>
+    {
+        var result = await mediator.Send(new UpdateProductProductCommand() { ProductDto = model });
+        return result.ResponseCode == "404" ? Results.NotFound(result.Message) :
+            result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result);
+    }).WithName("UpdateProduct").WithTags("Product")
     .Produces<Result>()
     .Produces<Result>(StatusCodes.Status400BadRequest);
 

@@ -1,0 +1,74 @@
+@inherits HavillahWebUI_Server.Pages.Product.ProductBase
+
+<div class="modal fade" id="editProductModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@EditProduct.value.productName</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@EditProduct" OnValidSubmit="@UpdateProduct">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name" @bind-value="@EditProduct.value.productName">
+                        </div>
+                        <div class="form-group">
+                            <label for="brandName">Brand Name</label>
+                            <input type="text" class="form-control" id="brandName" placeholder="Enter brand name" @bind-value="@EditProduct.value.brandName">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <input type="text" class="form-control" id="description" placeholder="Enter description" @bind-value="@EditProduct.value.description">
+                        </div>
+                        <div class="form-group">
+                            <label for="buyingPrice">Buying Price</label>
+                            <input type="number" class="form-control" id="buyingPrice" placeholder="Enter buying price" @bind-value="@EditProduct.value.defaultBuyingPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="sellingPrice">Selling Price</label>
+                            <input type="number" class="form-control" id="sellingPrice" placeholder="Enter selling price" @bind-value="@EditProduct.value.defaultSellingPrice">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" placeholder="Enter selling price" @bind-value="@EditProduct.value.quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="size">Sizes</label>
+                            <input type="text" class="form-control" id="size" placeholder="Enter selling price" @bind-value="@EditProduct.value.sizes">
+                        </div>
+                        <div class="form-group">
+                            <label for="colour">Colours</label>
+                            <input type="text" class="form-control" id="colour" placeholder="Enter selling price" @bind-value="@EditProduct.value.colours">
+                        </div>
+                        <div class="form-group">
+                            <label for="productImage">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <InputFile class="custom-file-input" id="productImage" OnChange="OnInputFileChange"/>
+                                    <label class="custom-file-label" for="productImage">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

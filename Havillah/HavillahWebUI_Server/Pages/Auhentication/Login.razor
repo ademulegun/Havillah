@@ -2,7 +2,57 @@
 @using Havillah.ApplicationServices.Authentication.Dto
 @layout AuthLayout
 
-<div class="text-center mt-2">
+  <div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="/index2.html" class="h1"><b>HAVILLAH</b>IMS</a>
+      </div>
+      <div class="card-body">
+<p class="login-box-msg">Sign in to start your session</p>
+
+      <EditForm Model="_loginDto" OnSubmit="Authenticate">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" @bind-value="@_loginDto.Email">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" @bind-value="@_loginDto.Password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Remember Me
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </EditForm>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.login-box -->
+
+
+@*<div class="text-center mt-2">
     <h5 class="text-primary">Welcome Back !</h5>
     <p class="text-muted">Sign in to continue to HIMS.</p>
 </div>
@@ -22,12 +72,12 @@
                    <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="submit" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                </div>
            </div>
-           @* <div class="form-check"> *@
-           @*     <input class="form-check-input" type="checkbox" value="" id="auth-remember-check"> *@
-           @*     <label class="form-check-label" for="auth-remember-check">Remember me</label> *@
-           @* </div> *@
+           $1$ <div class="form-check"> #1#
+           $1$     <input class="form-check-input" type="checkbox" value="" id="auth-remember-check"> #1#
+           $1$     <label class="form-check-label" for="auth-remember-check">Remember me</label> #1#
+           $1$ </div> #1#
            <div class="mt-4">
                <button class="btn btn-success w-100" type="submit">Sign In</button>
            </div>
        </EditForm>
-   </div>
+   </div>*@

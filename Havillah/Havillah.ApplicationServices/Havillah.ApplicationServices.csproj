@@ -19,4 +19,8 @@
       <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Category\UseCases\AddCategory\Dto" />
+    </ItemGroup>
+
 </Project>
