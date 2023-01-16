@@ -16,12 +16,10 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
-       // public List<Entity> Entities { get; set; }
         public decimal Expenditure { get; set; }
         public DateTime ExpenditureDate { get; set; }
         public string ContractedBy { get; set; }
-        public string Description { get; private set; }
-        public UpdateExpenseDto UpdateExpenseDto { get; set; }
+        public string Description { get; set; }
     }
 
     public class UpdateExpenseUseCaseCommandHandler: IRequestHandler<UpdateExpenseUseCaseCommand, Result>
