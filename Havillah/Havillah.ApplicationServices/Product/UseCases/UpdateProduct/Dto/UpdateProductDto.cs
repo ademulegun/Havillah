@@ -1,10 +1,9 @@
-using System;
+using Microsoft.AspNetCore.Http;
 
-namespace Havillah.ApplicationServices.Product.UseCases.GetProduct.Dto;
+namespace Havillah.ApplicationServices.Product.UseCases.UpdateProduct.Dto;
 
-public class GetProductDto
+public class UpdateProductDto
 {
-    public string Id { get; set; }
     public string ProductName { get; set; }
     public string ProductCode { get; set; }
     public string Barcode { get; set; }
@@ -17,9 +16,7 @@ public class GetProductDto
     public byte[] ProductImage { get; set; }
     public long ProductImageLength { get; set; }
     public string ProductImageExtension { get; set; }
-    public DateTime DateAdded { get; set; }
     public string BrandName { get; set; }
     public string Sizes { get; set; }
     public string Colours { get; set; }
-    public int Quantity { get; set; }
 }

@@ -13,10 +13,10 @@ namespace HavillahWebUI_Server.Data;
 
 public class AuthenticationService: IAuthenticationService
 {
-    private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClient;
     private readonly AuthenticationStateProvider _authenticationStateProvider;
     private readonly ILocalStorageService _sessionStorageService;
-    public AuthenticationService(HttpClient httpClientInstance, AuthenticationStateProvider authenticationStateProvider,
+    public AuthenticationService(IHttpClientFactory httpClientInstance, AuthenticationStateProvider authenticationStateProvider,
         ILocalStorageService sessionStorageService)
     {
         _httpClient = httpClientInstance;
@@ -26,8 +26,9 @@ public class AuthenticationService: IAuthenticationService
 
     public async Task<AuthenticationResult> Login(LoginDto loginModel)
     {
+        var client = _httpClient.CreateClient("authenticationClient");
         var loginAsJson = JsonSerializer.Serialize(loginModel);
-        var response = await _httpClient.PostAsync("login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
+        var response = await client.PostAsync("/security/generateToken", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
         var loginResult = JsonSerializer.Deserialize<AuthenticationResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
         if (!response.IsSuccessStatusCode)
@@ -35,15 +36,17 @@ public class AuthenticationService: IAuthenticationService
             return loginResult;
         }
         await _sessionStorageService.SetItemAsync("authToken", loginResult?.Token);
-        ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Username);
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult?.Token);
+        ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsAuthenticated(loginModel.Email);
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", loginResult?.Token);
         return loginResult;
     }
 
     public async Task Logout()
     {
+        var client = _httpClient.CreateClient("authenticationClient");
         await _sessionStorageService.RemoveItemAsync("authToken");
         ((CustomAuthenticationStateProvider)_authenticationStateProvider).MarkUserAsLoggedOut();
-        _httpClient.DefaultRequestHeaders.Authorization = null;
+        //client.Authorization = null;
+        client.DefaultRequestHeaders.Authorization = null;
     }
 }

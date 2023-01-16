@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Havillah.Shared.Category;
 using HavillahWebUI_Server.Models.Product;
 using AddProductDto = Havillah.Shared.Product.AddProductDto;
 
@@ -14,28 +15,33 @@ public class ProductService
         _httpClient = httpClient;
     }
 
-    public async Task<AddProductResponse> AddProducts(AddProductDto product)
+    public async Task<Response<string>> AddProducts(AddProductDto product)
     {
         var content = new StringContent(JsonSerializer.Serialize(product), Encoding.UTF8, "application/json");
         var httpResponse = await _httpClient.PostAsync("product", content);
-        if (httpResponse.IsSuccessStatusCode)
-        {
-            var response = await httpResponse.Content.ReadAsStringAsync();
-            var deserializedResponse = JsonSerializer.Deserialize<AddProductResponse>(response);
-            if (deserializedResponse != null) return deserializedResponse;
-        }
-        return new AddProductResponse();
+        if (!httpResponse.IsSuccessStatusCode) return new Response<string>();
+        var response = await httpResponse.Content.ReadAsStringAsync();
+        var deserializedResponse = JsonSerializer.Deserialize<Response<string>>(response);
+        return deserializedResponse ?? new Response<string>();
+    }
+    
+    public async Task<Response<string>> UpdateProducts(ProductToEditViewModel product)
+    {
+        var content = new StringContent(JsonSerializer.Serialize(product), Encoding.UTF8, "application/json");
+        var httpResponse = await _httpClient.PostAsync("updateProduct", content);
+        if (!httpResponse.IsSuccessStatusCode) return new Response<string>();
+        var response = await httpResponse.Content.ReadAsStringAsync();
+        var deserializedResponse = JsonSerializer.Deserialize<Response<string>>(response);
+        return deserializedResponse ?? new Response<string>();
     }
 
     public async Task<ProductsRoot?> GetProducts()
     {
         var products = new ProductsRoot();
         var productsResponse = await _httpClient.GetAsync("products");
-        if (productsResponse.IsSuccessStatusCode)
-        {
-            var serializedResponse = await productsResponse.Content.ReadAsStringAsync();
-            products = JsonSerializer.Deserialize<ProductsRoot>(serializedResponse);
-        }
+        if (!productsResponse.IsSuccessStatusCode) return products;
+        var serializedResponse = await productsResponse.Content.ReadAsStringAsync();
+        products = JsonSerializer.Deserialize<ProductsRoot>(serializedResponse);
         return products;
     }
     
@@ -43,11 +49,19 @@ public class ProductService
     {
         var product = new ProductRoot();
         var productsResponse = await _httpClient.GetAsync($"product/{id}");
-        if (productsResponse.IsSuccessStatusCode)
-        {
-            var serializedResponse = await productsResponse.Content.ReadAsStringAsync();
-            product = JsonSerializer.Deserialize<ProductRoot>(serializedResponse);
-        }
+        if (!productsResponse.IsSuccessStatusCode) return product;
+        var serializedResponse = await productsResponse.Content.ReadAsStringAsync();
+        product = JsonSerializer.Deserialize<ProductRoot>(serializedResponse);
         return product;
+    }
+    
+    public async Task<Response<string>> AddCategory(ProductCategory category)
+    {
+        var content = new StringContent(JsonSerializer.Serialize(category), Encoding.UTF8, "application/json");
+        var httpResponse = await _httpClient.PostAsync("category", content);
+        if (!httpResponse.IsSuccessStatusCode) return new Response<string>();
+        var response = await httpResponse.Content.ReadAsStringAsync();
+        var deserializedResponse = JsonSerializer.Deserialize<Response<string>>(response);
+        return deserializedResponse ?? new Response<string>();
     }
 }

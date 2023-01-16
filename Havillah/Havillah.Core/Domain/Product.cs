@@ -57,21 +57,85 @@ public class Product: BaseEntity<Guid>
                 sellingPrice, productImage, productImageLength, productImageExtension, colours, sizes, brandName);
         }
     }
-
+    public Product SetProductName(string productName)
+    {
+        if (string.IsNullOrEmpty(productName))  return this;
+        this.ProductName = productName;
+        return this;
+    }
+    public Product SetBrandName(string brandName)
+    {
+        if (string.IsNullOrEmpty(brandName))  return this;
+        this.BrandName = brandName;
+        return this;
+    }
+    
+    public Product SetDescription(string description)
+    {
+        if (string.IsNullOrEmpty(description))  return this;
+        this.Description = description;
+        return this;
+    }
+    
+    public Product SetSize(string size)
+    {
+        if (string.IsNullOrEmpty(size))  return this;
+        this.Sizes = size;
+        return this;
+    }
+    public Product SetColour(string colour)
+    {
+        if (string.IsNullOrEmpty(colour))  return this;
+        this.Colours = colour;
+        return this;
+    }
+    public Product SetSellingPrice(double sellingPrice)
+    {
+        if (sellingPrice < 1)  return this;
+        this.SellingPrice = sellingPrice;
+        return this;
+    }
+    public Product SetBuyingPrice(double buyingPrice)
+    {
+        if (buyingPrice < 1)  return this;
+        this.BuyingPrice = buyingPrice;
+        return this;
+    }
     public Product SetUnitOfMeasureId(int unitOfMeasureId)
     {
         this.UnitOfMeasureId = unitOfMeasureId;
         return this;
     }
+
+    public Product SetImageByte(byte[]? image)
+    {
+        if (image == null)  return this;
+        this.ProductImage = image;
+        return this;
+    }
+    public Product SetImageLength(long imageLenght)
+    {
+        if (imageLenght < 1)  return this;
+        this.ProductImageLength = imageLenght;
+        return this;
+    }
+    public Product SetImageExtension(string imageExtension)
+    {
+        if (string.IsNullOrEmpty(imageExtension))  return this;
+        this.ProductImageExtension = imageExtension;
+        return this;
+    }
     
     public Product SetBranchId(int branchId)
     {
+        if (branchId < 1)  return this;
         this.BranchId = branchId;
         return this;
     }
     
     public Product SetCurrencyId(int currencyId)
     {
+        if (currencyId < 1)  return this;
         this.CurrencyId = currencyId;
         return this;
     }

@@ -1,0 +1,41 @@
+@inherits HavillahWebUI_Server.Pages.Product.ProductBase
+
+<div class="modal fade" id="addCategory">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <EditForm Model="@AddCategoryDto" OnValidSubmit="@AddCategory">
+                    <DataAnnotationsValidator/>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="categoryName">Category Name</label>
+                            <input type="text" class="form-control" id="categoryName" placeholder="Enter category name" @bind-value="@AddCategoryDto.Name">
+                            <ValidationMessage For="()=>AddCategoryDto.Name"/>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        @if (!IsCategoryAddButtonDisabled)
+                        {
+                            <button type="submit" class="btn btn-primary">Submit</button>   
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary" disabled="disabled">Submit</button> 
+                        }
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,128 +1,125 @@
 @page "/products"  
+@using HavillahWebUI_Server.Controls.Products
+@using HavillahWebUI_Server.Controls.Category
+@inherits ProductBase
 @layout MainLayout
 
 <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
+<section class="content-header">
+    <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Projects</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Projects</li>
-            </ol>
-          </div>
+            <div class="col-sm-6">
+                <h1>PRODUCTS</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item">
+                        <a href="#">Home</a>
+                    </li>
+                    <li class="breadcrumb-item active">Products</li>
+                </ol>
+            </div>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+    </div><!-- /.container-fluid -->
+</section>
 
-    <!-- Main content -->
-    <section class="content">
-    <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Projects</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="btn btn-primary btn-lg btn-flat">
+                                @* <i class="fas fa-plus fa-lg mr-2"></i> *@
+                                <button type="button" class="btn btn-primary btn-block" data-target="#addCategory" data-toggle="modal">
+                                    <i class="fa fa-plus-circle"></i> Add Category
+                                </button>
+                            </div>
+                            <div class="btn btn-primary btn-lg btn-flat">
+                                @* <i class="fas fa-plus fa-lg mr-2"></i> *@
+                                <button type="button" class="btn btn-primary btn-block" data-target="#addProductModal" data-toggle="modal">
+                                    <i class="fa fa-plus-circle"></i> Add Product
+                                </button>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        @if (products?.value != null)
+                        {
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Image</th>
+                                    <th>Product Name</th>
+                                    <th>Brand Name</th>
+                                    <th>Product Code</th>
+                                    <th>Product Description</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach (var p in products?.value)
+                                {
+                                    <tr>
+                                        <td>@p.id</td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img height="50" width="50" alt="Avatar" class="table-avatar" src="@p.image">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td>@p.productName</td>
+                                        <td>@p.brandName</td>
+                                        <td>@p.productCode</td>
+                                        <td>@p.description</td>
+                                        <td class="text-right py-0 align-middle">
+                                            <div class="btn-group btn-group-sm">
+                                                <NavLink href="@($"product/{p.id}")" class="btn btn-info">
+                                                    <i class="fas fa-eye"></i>
+                                                </NavLink>
+                                                <a href="#" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            if (IsProducsLoading)
+                            {
+                                //show loading gif
+                                <div class="overlay text-center"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">
+                                    Loading...
+                                </div></div>
+                            }
+                            else
+                            {
+                                <p>No record found</p>
+                            }
+                        }
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
         </div>
-        <div class="card-body p-0">
-          <table class="table table-striped projects">
-              <thead>
-                  <tr>
-                      <th style="width: 1%">
-                          #
-                      </th>
-                      <th style="width: 20%">
-                          Project Name
-                      </th>
-                      <th style="width: 30%">
-                          Team Members
-                      </th>
-                      <th>
-                          Project Progress
-                      </th>
-                      <th style="width: 8%" class="text-center">
-                          Status
-                      </th>
-                      <th style="width: 20%">
-                      </th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>
-                          #
-                      </td>
-                      <td>
-                          <a>
-                              AdminLTE v3
-                          </a>
-                          <br/>
-                          <small>
-                              Created 01.01.2019
-                          </small>
-                      </td>
-                      <td>
-                          <ul class="list-inline">
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="dist/img/avatar.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="dist/img/avatar2.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="dist/img/avatar3.png">
-                              </li>
-                              <li class="list-inline-item">
-                                  <img alt="Avatar" class="table-avatar" src="dist/img/avatar4.png">
-                              </li>
-                          </ul>
-                      </td>
-                      <td class="project_progress">
-                          <div class="progress progress-sm">
-                              <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
-                              </div>
-                          </div>
-                          <small>
-                              57% Complete
-                          </small>
-                      </td>
-                      <td class="project-state">
-                          <span class="badge badge-success">Success</span>
-                      </td>
-                      <td class="project-actions text-right">
-                          <NavLink class="btn btn-primary btn-sm" href="product">
-                              <i class="fas fa-folder">
-                              </i>
-                              View
-                          </NavLink>
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-
-    </section>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
 <!-- /.content -->
+
+<AddProductModalComponent></AddProductModalComponent>
+<AddCategoryModalComponent IsCategoryAddButtonDisabled="IsCategoryAddButtonDisabled"></AddCategoryModalComponent>

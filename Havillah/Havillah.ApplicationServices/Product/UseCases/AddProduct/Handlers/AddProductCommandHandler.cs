@@ -34,12 +34,12 @@ public class AddProductCommand : IRequest<Result>
                     .SetUnitOfMeasureId(request.AddProductDto.UnitOfMeasureId);
                 await _repository.Add(model: product);
                 var productSaved = await _repository.Save();
-                return productSaved > 0 ? Result.Ok("Product added successfully") : Result.Fail("Unable to add product");
+                return productSaved > 0 ? Result.Ok("Product added successfully", "00") : Result.Fail("Unable to add product", "01");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return Result.Fail("Something went wrong");
+                return Result.Fail("Something went wrong", "01");
             }
         }
     }   

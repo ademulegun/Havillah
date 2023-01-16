@@ -11,7 +11,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazoredLocalStorage();
 builder.Services.AddAuthenticationCore();
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:7002") });
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:7080") });
+builder.Services.AddHttpClient("authenticationClient", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration.GetSection("ProductApiUrl").Value);
+});
+builder.Services.AddHttpClient<ProductService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration.GetSection("ProductApiUrl").Value);
+});
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
