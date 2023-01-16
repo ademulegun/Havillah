@@ -1,4 +1,4 @@
-#Stage 1 Define base image that will be used for production
+﻿#Stage 1 Define base image that will be used for production
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80

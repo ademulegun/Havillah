@@ -5,6 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+        <UserSecretsId>296f6d94-b2a9-4921-81fd-e73f5a15c7c4</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,6 +16,7 @@
 
     <ItemGroup>
       <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
+      <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     </ItemGroup>
 
     <ItemGroup>
