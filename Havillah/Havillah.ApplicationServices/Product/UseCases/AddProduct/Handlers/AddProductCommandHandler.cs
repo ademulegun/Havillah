@@ -29,7 +29,7 @@ public class AddProductCommand : IRequest<Result>
                         request.AddProductDto.Description, "", request.AddProductDto.UnitOfMeasureId, request.AddProductDto.DefaultBuyingPrice,
                         request.AddProductDto.DefaultSellingPrice, request.AddProductDto.ProductImage, request.AddProductDto.ProductImageLength, 
                         request.AddProductDto.ProductImageExtension, request.AddProductDto.Colours, request.AddProductDto.Sizes, 
-                        request.AddProductDto.BrandName).SetBranchId(request.AddProductDto.BranchId)
+                        request.AddProductDto.BrandName, request.AddProductDto.Quantity).SetBranchId(request.AddProductDto.BranchId)
                     .SetCurrencyId(request.AddProductDto.CurrencyId)
                     .SetUnitOfMeasureId(request.AddProductDto.UnitOfMeasureId);
                 await _repository.Add(model: product);

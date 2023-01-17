@@ -262,7 +262,8 @@ app.MapGet("/products", async (IMediator mediator) =>
 app.MapGet("/product/{id}", async (Guid id, IMediator mediator) =>
 {
     var product = await mediator.Send(new GetProductQuery() { Id = id});
-    return !product.IsSuccess ? Results.NotFound(product) : Results.Ok(product);
+    return product?.Value.Id == default ? Results.NotFound(product) : 
+              product.IsSuccess ? Results.Ok(product) : Results.BadRequest(product);
 }).WithName("GetProductById").WithTags("Product")
     .Produces<Result<GetProductDto>>()
     .Produces<Result<GetProductDto>>(StatusCodes.Status400BadRequest)

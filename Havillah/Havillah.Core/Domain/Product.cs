@@ -2,7 +2,7 @@ namespace Havillah.Core.Domain;
 
 public class Product: BaseEntity<Guid>
 {
-    protected Product() { }
+    public Product() { }
     private Product(Guid id, string productName, string productCode, string description, string productImageUrl, int unitOfMeasureId, 
         double buyingPrice, double sellingPrice, byte[] productImage, long productImageLength, string productImageExtension, 
         string colours, string sizes, string brandName)
@@ -33,7 +33,7 @@ public class Product: BaseEntity<Guid>
     public string Colours { get; private set; }
     public string ProductImageUrl { get; private set; }
     public int UnitOfMeasureId { get; set; } = 0;
-    public int Quantity { get; set; }
+    public int Quantity { get; private set; }
     public double BuyingPrice { get; private set; } = 0.0;
     public double SellingPrice { get; private set; } = 0.0;
     public int BranchId { get; set; } = 0;
@@ -51,8 +51,10 @@ public class Product: BaseEntity<Guid>
     {
         public static Product Create(Guid id, string productName, string productCode, string description,
             string productImageUrl, int unitOfMeasureId, double buyingPrice, double sellingPrice, byte[] productImage, 
-            long productImageLength, string productImageExtension, string colours, string sizes, string brandName)
+            long productImageLength, string productImageExtension, string colours, string sizes, string brandName, int quantity)
         {
+            //if (quantity < 1) throw new Exception("Quantity can not be less than 1");
+            //if (buyingPrice < 100) throw new Exception("");
             return new Product(id, productName, productCode, description, productImageUrl, unitOfMeasureId, buyingPrice,
                 sellingPrice, productImage, productImageLength, productImageExtension, colours, sizes, brandName);
         }
