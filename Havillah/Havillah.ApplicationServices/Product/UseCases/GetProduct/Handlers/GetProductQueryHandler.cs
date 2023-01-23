@@ -25,7 +25,6 @@ public class GetProductQuery: IRequest<Result<GetProductDto>>
         {
             try
             {
-<<<<<<< HEAD
                 var productFromDb = await _repository.Find(x=>x.Id == request.Id);
                 if(productFromDb.Id == default) return Result.Ok<GetProductDto>(new GetProductDto());
                 var product = new GetProductDto()
@@ -44,20 +43,6 @@ public class GetProductQuery: IRequest<Result<GetProductDto>>
                 Console.WriteLine(e);
                 return Result.Fail<GetProductDto>("Something went wrong");
             }
-=======
-                Id = productFromDb.Id.ToString(), ProductName = productFromDb.ProductName, DefaultBuyingPrice = productFromDb.BuyingPrice, 
-                DefaultSellingPrice = productFromDb.SellingPrice, Barcode = productFromDb.Barcode, Description = productFromDb.Description, 
-                BranchId = productFromDb.BranchId, CurrencyId = productFromDb.CurrencyId, ProductCode = productFromDb.ProductCode, 
-                ProductImage = productFromDb.ProductImage, ProductImageExtension = productFromDb.ProductImageExtension,
-<<<<<<< HEAD
-                Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName, 
-                Quantity = productFromDb.Quantity
-=======
-                Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName
->>>>>>> e34493e (modified espense with constructor)
-            };
-            return Result.Ok(product);
->>>>>>> 2ac5f8b (rebase done and dusted)
         }
     }   
 }

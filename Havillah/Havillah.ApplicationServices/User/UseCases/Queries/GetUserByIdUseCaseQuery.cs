@@ -13,7 +13,6 @@ public class GetUserByIdUseCaseQuery: IRequest<Result<GetUserDto>>
     {
         private readonly IRepository<ApplicationUser> _repository;
         public GetUserByIdUseCaseQueryHandler(IRepository<ApplicationUser> repository)
-
         {
             _repository = repository;
         }

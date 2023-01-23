@@ -21,8 +21,5 @@ public class GetProductDto
     public string BrandName { get; set; }
     public string Sizes { get; set; }
     public string Colours { get; set; }
-<<<<<<< HEAD
     public int Quantity { get; set; }
-=======
->>>>>>> e34493e (modified espense with constructor)
 }

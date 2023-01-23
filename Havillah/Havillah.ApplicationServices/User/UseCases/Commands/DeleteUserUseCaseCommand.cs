@@ -15,6 +15,7 @@ public class DeleteUserUseCaseCommand : IRequest<Result>
         {
             _repository = repository;
         }
+
         public async Task<Result> Handle(DeleteUserUseCaseCommand request, CancellationToken cancellationToken)
         {
             var user = await _repository.Find(predicate: x => x.Id == request.Id);

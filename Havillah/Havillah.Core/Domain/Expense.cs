@@ -8,19 +8,6 @@ namespace Havillah.Core.Domain
 {
     public class Expense: BaseEntity<Guid>
     {
-<<<<<<< HEAD
-=======
-        private Expense(Guid id, string title, decimal expenditure, DateTime expenditureDate, string contractedBy, string description)
-        {
-            Id = id;
-            Title = title;
-            Expenditure = expenditure;
-            ExpenditureDate = expenditureDate;
-            ContractedBy = contractedBy;
-            Description = description;
-        }
->>>>>>> 2ac5f8b (rebase done and dusted)
-
         protected Expense() { }
         private Expense(Guid id, string title, decimal expenditure, DateTime expenditureDate, string contractedBy, string description)
         {
@@ -44,11 +31,7 @@ namespace Havillah.Core.Domain
             public static Expense Create(Guid id, string title, decimal expenditure, DateTime expenditureDate,
                 string contractedBy, string description)
             {
-<<<<<<< HEAD
                 return new Expense(id, title, expenditure, expenditureDate, contractedBy, description);
-=======
-                return new Expense(id, Title, Expenditure, ExpenditureDate, ContractedBy, Description);
->>>>>>> 2ac5f8b (rebase done and dusted)
             }
         }
         public Expense SetDescription(string description)

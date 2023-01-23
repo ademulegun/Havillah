@@ -20,7 +20,7 @@
       <Folder Include="Product\UseCases\GetProduct" />
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup>	
       <ProjectReference Include="..\Havillah.Core\Havillah.Core.csproj" />
       <ProjectReference Include="..\Havillah.Shared\Havillah.Shared.csproj" />
     </ItemGroup>
@@ -29,6 +29,7 @@
       <Folder Include="Category\UseCases\GetCategory\Handler" />
       <Folder Include="Category\UseCases\AddCategory\Dto" />
       <Folder Include="Expensee\" />
+      <Folder Include="Category\UseCases\AddCategory\Dto" />
     </ItemGroup>
 
 </Project>

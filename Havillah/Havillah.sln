@@ -34,6 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "Hav
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Persistence", "Havillah.Persistence\Havillah.Persistence.csproj", "{40773C4E-027C-44EB-B9D1-99CA2CB73A10}"
 EndProject
 <<<<<<< HEAD
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
 EndProject
@@ -51,12 +52,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havillah.Shared", "Havillah
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
 >>>>>>> 56eb5a1 (trying)
 >>>>>>> ba8a519 (trying)
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
+>>>>>>> 4bb15a5 (made alot of corrections from the last rebase, could'nt merge to Dev bcos i was asked to correct those errors)
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
@@ -72,6 +79,8 @@ Global
 =======
 >>>>>>> 56eb5a1 (trying)
 >>>>>>> ba8a519 (trying)
+=======
+>>>>>>> 4bb15a5 (made alot of corrections from the last rebase, could'nt merge to Dev bcos i was asked to correct those errors)
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -97,11 +106,11 @@ Global
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 <<<<<<< HEAD
 		{2B3D271A-AB19-4407-93E9-E35035B16699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2B3D271A-AB19-4407-93E9-E35035B16699}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -127,6 +136,8 @@ Global
 =======
 =======
 >>>>>>> ba8a519 (trying)
+=======
+>>>>>>> 4bb15a5 (made alot of corrections from the last rebase, could'nt merge to Dev bcos i was asked to correct those errors)
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +149,7 @@ Global
 		{66DFE785-AF25-4F5F-A696-41BB054BE630} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
 		{A569BCB5-A418-46D2-8302-E72694FC08E6} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19} = {3254FB1C-17CD-4610-A1BD-80FB6B632DB1}
 		{14A2126D-CAC5-41F9-8B98-EB0621DCE5D5} = {BBC4F1A9-42D4-42C7-B2C2-6B5684C7486B}
@@ -151,5 +163,11 @@ Global
 		SolutionGuid = {773D4861-FFEB-4C30-A351-F02BD18A9BA2}
 >>>>>>> 56eb5a1 (trying)
 >>>>>>> ba8a519 (trying)
+=======
+		{A800A6C7-5589-4ADA-852B-5E71E56DAF19} = {3254FB1C-17CD-4610-A1BD-80FB6B632DB1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {773D4861-FFEB-4C30-A351-F02BD18A9BA2}
+>>>>>>> 4bb15a5 (made alot of corrections from the last rebase, could'nt merge to Dev bcos i was asked to correct those errors)
 	EndGlobalSection
 EndGlobal
