@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace Havillah.Shared.Product;
 
 public class AddProductDto

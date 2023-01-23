@@ -8,6 +8,8 @@ namespace Havillah.Core.Domain
 {
     public class Expense: BaseEntity<Guid>
     {
+
+        protected Expense() { }
         private Expense(Guid id, string title, decimal expenditure, DateTime expenditureDate, string contractedBy, string description)
         {
             Id = id;
@@ -18,21 +20,40 @@ namespace Havillah.Core.Domain
             Description = description;
         }
 
-        protected Expense() { }
-        public string Title { get; set; }
+        public string Title { get; private set; }
         public List<Entity> Entities { get;set; } 
-        public decimal Expenditure { get;set; }
+        public decimal Expenditure { get;private set; }
         public DateTime ExpenditureDate { get;set; }
         public string ContractedBy { get; set; }
         public string Description { get; private set; }
 
         public static class ExpenseFactory
         {
-            public static Expense Create(Guid id, string Title, decimal Expenditure, DateTime ExpenditureDate,
-                string ContractedBy, string Description)
+            public static Expense Create(Guid id, string title, decimal expenditure, DateTime expenditureDate,
+                string contractedBy, string description)
             {
-                return new Expense(id, Title, Expenditure, ExpenditureDate, ContractedBy, Description);
+                return new Expense(id, title, expenditure, expenditureDate, contractedBy, description);
             }
+        }
+        public Expense SetDescription(string description)
+        {
+            if (string.IsNullOrEmpty(description)) return this;
+            this.Description = description;
+            return this;
+        }
+        
+        public Expense SetExpenditure(decimal expenditure)
+        {
+            if (decimal.Zero == 0) return this;
+            this.Expenditure = expenditure;
+            return this;
+        }
+
+        public Expense SetTitle(string title)
+        {
+            if(string.IsNullOrEmpty(title)) return this;
+            this.Title = title;
+            return this;
         }
     }
 }
