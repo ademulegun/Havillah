@@ -14,12 +14,7 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
 {
     public class UpdateExpenseUseCaseCommand: IRequest<Result>
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public decimal Expenditure { get; set; }
-        public DateTime ExpenditureDate { get; set; }
-        public string ContractedBy { get; set; }
-        public string Description { get; set; }
+        public UpdateExpenseDto ExpenseDto { get; set; }    
     }
 
     public class UpdateExpenseUseCaseCommandHandler: IRequestHandler<UpdateExpenseUseCaseCommand, Result>
@@ -33,18 +28,23 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
 
         public async Task<Result> Handle(UpdateExpenseUseCaseCommand request, CancellationToken cancellationToken)
         {
-            var expense = await _repository.Find(predicate: e => e.Id == request.Id);
-            if (string.IsNullOrEmpty(expense.Title)) return Result.Fail("such expense does not exist");
-            expense.Title = request.Title;
-            expense.Expenditure = request.Expenditure;
-            expense.ExpenditureDate = request.ExpenditureDate;  
-            expense.ContractedBy = request.ContractedBy;
-            //expense.Description = request.Description;
+            try
+            {
+                var expenseFromDb = await _repository.Find(e => e.Id == request.ExpenseDto.Id);
+                if (expenseFromDb.Id == default) return Result.Fail("such expense does not exist");
+                expenseFromDb.SetDescription(request.ExpenseDto.Description).SetExpenditure(request.ExpenseDto.Expenditure)
+                .SetTitle(request.ExpenseDto.Title); 
+                request.ExpenseDto.ExpenditureDate = expenseFromDb.ExpenditureDate;
+                request.ExpenseDto.ContractedBy = expenseFromDb.ContractedBy;
+                _repository.Update(model: expenseFromDb);
+                var isUpdated = await _repository.Save();
+                return isUpdated > 0 ? Result.Ok("Successfully updated expense", "00") : Result.Fail("unable to update expense", "01");
 
-            _repository.Update(expense);
-            var isUpdated = await _repository.Save();
-            return isUpdated < 1 ? Result.Fail("Unable to update expense") : Result.Ok("Successfully updated expense");
-
+            }
+            catch (Exception e)
+            {
+                return Result.Fail("Something went wrong", "01");
+            }
 
         }
     }

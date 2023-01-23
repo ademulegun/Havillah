@@ -31,8 +31,8 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Queries
                     listOfExpenses.Add(new GetExpenseDto
                     {
                         Title = exp.Title,
-                        Expenditure = exp.Expenditure,  
-                        ExpenditureDate = exp.ExpenditureDate,  
+                        Expenditure = exp.Expenditure,
+                        ExpenditureDate = exp.ExpenditureDate,
                         ContractedBy = exp.ContractedBy
                     });
                 }
