@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  HavillahIMSDb:
+    image:
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+
+  havillahwebui_server:
+    image: ${DOCKER_REGISTRY-}havillahwebuiserver
+    build:
+      context: .
+      dockerfile: HavillahWebUI_Server/Dockerfile
+
