@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "adddropdwntocreateproduct" ]
+    branches: [ "development" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "development" ]
 
 jobs:
   build:
