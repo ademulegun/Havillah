@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
+<<<<<<< HEAD
 VisualStudioVersion = 17.1.32407.343
+=======
+VisualStudioVersion = 17.3.32825.248
+>>>>>>> 4bb15a562a6003fb16ab672771bb598b615a282a
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{7D9BC64C-A968-446D-80F4-27C03366ABF3}"
 EndProject
@@ -23,6 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Core", "Havillah.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Infrasructure", "Havillah.Infrasructure\Havillah.Infrasructure.csproj", "{66DFE785-AF25-4F5F-A696-41BB054BE630}"
 EndProject
+<<<<<<< HEAD
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Persistence", "Havillah.Persistence\Havillah.Persistence.csproj", "{40773C4E-027C-44EB-B9D1-99CA2CB73A10}"
 EndProject
@@ -31,6 +36,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavillahWebUI_Server", "Hav
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{2B3D271A-AB19-4407-93E9-E35035B16699}"
+=======
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Persistence", "Havillah.Persistence\Havillah.Persistence.csproj", "{40773C4E-027C-44EB-B9D1-99CA2CB73A10}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
+>>>>>>> 4bb15a562a6003fb16ab672771bb598b615a282a
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,5 +98,20 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F91A7BA-CE5A-45DA-A1CE-DEE138C2F030}
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1B707614-AD01-4EAF-AF21-3BE925602830} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
+		{B3812325-F1D2-49A3-9548-EC4A7E98F260} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
+		{9998EE04-25B4-4494-BB1E-154B873D1959} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
+		{66DFE785-AF25-4F5F-A696-41BB054BE630} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
+		{40773C4E-027C-44EB-B9D1-99CA2CB73A10} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
+		{A569BCB5-A418-46D2-8302-E72694FC08E6} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
+		{A800A6C7-5589-4ADA-852B-5E71E56DAF19} = {3254FB1C-17CD-4610-A1BD-80FB6B632DB1}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {773D4861-FFEB-4C30-A351-F02BD18A9BA2}
 	EndGlobalSection
 EndGlobal

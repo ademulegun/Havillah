@@ -1,4 +1,7 @@
 using System.Text;
+using Havillah.ApplicationServices.Expense.Dto;
+using Havillah.ApplicationServices.Expense.UseCases.Commands;
+using Havillah.ApplicationServices.Expense.UseCases.Queries;
 using Havillah.ApplicationServices.Authentication.Dto;
 using Havillah.ApplicationServices.Authentication.UseCases.Commands;
 using Havillah.ApplicationServices.Authentication.UseCases.Queries;
