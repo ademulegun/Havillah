@@ -5,7 +5,7 @@ public class Product: BaseEntity<Guid>
     protected Product() { }
     private Product(Guid id, string productName, string productCode, string description, string productImageUrl, int unitOfMeasureId, 
         double buyingPrice, double sellingPrice, byte[] productImage, long productImageLength, string productImageExtension, 
-        string colours, string sizes, string brandName)
+        string colours, string sizes, string brandName, int quantity, ProductCategory category)
     {
         Id = id;
         ProductName = productName;
@@ -22,6 +22,8 @@ public class Product: BaseEntity<Guid>
         Colours = colours;
         Sizes = sizes;
         BrandName = brandName;
+        Quantity = quantity;
+        Category = category;
     }
     
     public string ProductName { get; private set; }
@@ -33,7 +35,7 @@ public class Product: BaseEntity<Guid>
     public string Colours { get; private set; }
     public string ProductImageUrl { get; private set; }
     public int UnitOfMeasureId { get; set; } = 0;
-    public int Quantity { get; set; }
+    public int Quantity { get; private set; }
     public double BuyingPrice { get; private set; } = 0.0;
     public double SellingPrice { get; private set; } = 0.0;
     public int BranchId { get; set; } = 0;
@@ -43,18 +45,21 @@ public class Product: BaseEntity<Guid>
     public byte[] ProductImage { get; private set; }
     public long ProductImageLength { get; private set; }
     public string ProductImageExtension { get; private set; }
-    public int CategoryId { get; set; }
-    public string Category { get; set; }
+    public int CategoryId { get; private set; }
+    public ProductCategory Category { get; private set; }
     public List<Stock> Stocks { get; private set; }
 
     public static class ProductFactory
     {
-        public static Product Create(Guid id, string productName, string productCode, string description,
-            string productImageUrl, int unitOfMeasureId, double buyingPrice, double sellingPrice, byte[] productImage, 
-            long productImageLength, string productImageExtension, string colours, string sizes, string brandName)
+        public static Product Create(Guid id, string productName, string productCode, string description, string productImageUrl, 
+            int unitOfMeasureId, double buyingPrice, double sellingPrice, byte[] productImage, long productImageLength, 
+            string productImageExtension, string colours, string sizes, string brandName, int quantity, ProductCategory category)
         {
-            return new Product(id, productName, productCode, description, productImageUrl, unitOfMeasureId, buyingPrice,
-                sellingPrice, productImage, productImageLength, productImageExtension, colours, sizes, brandName);
+            //if (quantity < 1) throw new Exception("Quantity can not be less than 1");
+            //if (buyingPrice < 100) throw new Exception("");
+            //if (categoryId < 1) throw new Exception("");
+            return new Product(id, productName, GenerateProductCode(productCode), description, productImageUrl, unitOfMeasureId, buyingPrice,
+                sellingPrice, productImage, productImageLength, productImageExtension, colours, sizes, brandName, quantity, category);
         }
     }
     public Product SetProductName(string productName)
@@ -138,5 +143,16 @@ public class Product: BaseEntity<Guid>
         if (currencyId < 1)  return this;
         this.CurrencyId = currencyId;
         return this;
+    }
+    
+    private static string GenerateProductCode(string code)
+    {
+        if (string.IsNullOrEmpty(code))
+        {
+            return 0001.ToString();
+        }
+        int productCode = int.Parse(code);
+        productCode++;
+        return productCode.ToString(); 
     }
 }

@@ -23,18 +23,26 @@ public class GetProductQuery: IRequest<Result<GetProductDto>>
         
         public async Task<Result<GetProductDto>> Handle(GetProductQuery request, CancellationToken cancellationToken)
         {
-            var productFromDb = await _repository.Find(x=>x.Id == request.Id);
-            if(productFromDb.Id == default) return Result.Fail<GetProductDto>("Not Found");
-            var product = new GetProductDto()
+            try
             {
-                Id = productFromDb.Id.ToString(), ProductName = productFromDb.ProductName, DefaultBuyingPrice = productFromDb.BuyingPrice, 
-                DefaultSellingPrice = productFromDb.SellingPrice, Barcode = productFromDb.Barcode, Description = productFromDb.Description, 
-                BranchId = productFromDb.BranchId, CurrencyId = productFromDb.CurrencyId, ProductCode = productFromDb.ProductCode, 
-                ProductImage = productFromDb.ProductImage, ProductImageExtension = productFromDb.ProductImageExtension,
-                Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName, 
-                Quantity = productFromDb.Quantity
-            };
-            return Result.Ok(product);
+                var productFromDb = await _repository.Find(x=>x.Id == request.Id);
+                if(productFromDb.Id == default) return Result.Ok<GetProductDto>(new GetProductDto());
+                var product = new GetProductDto()
+                {
+                    Id = productFromDb.Id.ToString(), ProductName = productFromDb.ProductName, DefaultBuyingPrice = productFromDb.BuyingPrice, 
+                    DefaultSellingPrice = productFromDb.SellingPrice, Barcode = productFromDb.Barcode, Description = productFromDb.Description, 
+                    BranchId = productFromDb.BranchId, CurrencyId = productFromDb.CurrencyId, ProductCode = productFromDb.ProductCode, 
+                    ProductImage = productFromDb.ProductImage, ProductImageExtension = productFromDb.ProductImageExtension,
+                    Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName, 
+                    Quantity = productFromDb.Quantity
+                };
+                return Result.Ok(product);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Result.Fail<GetProductDto>("Something went wrong");
+            }
         }
     }   
 }

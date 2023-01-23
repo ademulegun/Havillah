@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Category\UseCases\AddCategory\Dto" />
+      <Folder Include="Category\UseCases\GetCategory\Handler" />
     </ItemGroup>
 
 </Project>
