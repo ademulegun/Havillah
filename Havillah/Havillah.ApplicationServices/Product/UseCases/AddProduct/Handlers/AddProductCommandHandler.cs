@@ -1,5 +1,6 @@
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.UseCases.AddProduct.Dto;
+using Havillah.Core.Domain;
 using Havillah.Shared;
 using MediatR;
 
@@ -12,11 +13,13 @@ public class AddProductCommand : IRequest<Result>
     public class AddProductCommandHandler: IRequestHandler<AddProductCommand, Result>
     {
         private readonly IRepository<Core.Domain.Product> _repository;
+        private readonly IRepository<Core.Domain.ProductCategory> _categoryRepository;
         private readonly IUploadImageToStorage _uploadImage;
-        public AddProductCommandHandler(IRepository<Core.Domain.Product> repository, IUploadImageToStorage uploadImage)
+        public AddProductCommandHandler(IRepository<Core.Domain.Product> repository, IUploadImageToStorage uploadImage, IRepository<ProductCategory> categoryRepository)
         {
             _repository = repository;
             _uploadImage = uploadImage;
+            _categoryRepository = categoryRepository;
         }
         public async Task<Result> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
@@ -25,11 +28,13 @@ public class AddProductCommand : IRequest<Result>
                 var productId = Guid.NewGuid();
                 //Call cloud storage here, then return url to product image.
                 //var result = await _uploadImage.Upload(request.AddProductDto.ProductImage);
-                var product = Core.Domain.Product.ProductFactory.Create(productId, request.AddProductDto.ProductName, request.AddProductDto.ProductCode,
+                var category = await _categoryRepository.Find(predicate: x => x.Id == request.AddProductDto.CategoryId);
+                var productCode = _repository.GetAll().Result.Last();
+                var product = Core.Domain.Product.ProductFactory.Create(productId, request.AddProductDto.ProductName, productCode.ProductCode,
                         request.AddProductDto.Description, "", request.AddProductDto.UnitOfMeasureId, request.AddProductDto.DefaultBuyingPrice,
                         request.AddProductDto.DefaultSellingPrice, request.AddProductDto.ProductImage, request.AddProductDto.ProductImageLength, 
                         request.AddProductDto.ProductImageExtension, request.AddProductDto.Colours, request.AddProductDto.Sizes, 
-                        request.AddProductDto.BrandName, request.AddProductDto.Quantity).SetBranchId(request.AddProductDto.BranchId)
+                        request.AddProductDto.BrandName, request.AddProductDto.Quantity, category).SetBranchId(request.AddProductDto.BranchId)
                     .SetCurrencyId(request.AddProductDto.CurrencyId)
                     .SetUnitOfMeasureId(request.AddProductDto.UnitOfMeasureId);
                 await _repository.Add(model: product);

@@ -5,7 +5,6 @@ namespace Havillah.Shared.Product;
 public class AddProductDto
 {
     public string ProductName { get; set; }
-    public string ProductCode { get; set; }
     public string Barcode { get; set; }
     public string Description { get; set; }
     public int UnitOfMeasureId { get; set; }
@@ -20,4 +19,5 @@ public class AddProductDto
     public string BrandName { get; set; }
     public string Sizes { get; set; }
     public string Colours { get; set; }
+    public int CategoryId { get; set; }
 }

@@ -23,7 +23,8 @@ public class ProductBase: ComponentBase
     [Inject] private IJSRuntime JsRuntime { get; set; }
     public bool IsProducsLoading { get; set; } = true;
     [Parameter]public bool IsCategoryAddButtonDisabled { get; set; } = false;
-    
+    public List<GetCategories>? CategoryList { get; set; } = new();
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -35,6 +36,8 @@ public class ProductBase: ComponentBase
     private async Task LoadProducts()
     {
         StateHasChanged();
+        var result = await _productService.GetCategories();
+        CategoryList = result?.value;
         products = await _productService.GetProducts();
         foreach (var p in products.value)
         {
@@ -122,7 +125,6 @@ public class ProductBase: ComponentBase
             this.StateHasChanged();
         }
     }
-    
     protected async Task AddProduct()
     {
         try
@@ -144,7 +146,7 @@ public class ProductBase: ComponentBase
                     Description = AddProductDto.Description, DefaultBuyingPrice = AddProductDto.DefaultBuyingPrice, 
                     DefaultSellingPrice = AddProductDto.DefaultSellingPrice, Quantity = AddProductDto.Quantity, Sizes = AddProductDto.Sizes, 
                     Colours = AddProductDto.Colours, ProductImage = ms.ToArray(), ProductImageExtension = Path.GetExtension(selectedFiles.Name), 
-                    ProductImageLength = selectedFiles.Size
+                    ProductImageLength = selectedFiles.Size, CategoryId = AddProductDto.CategoryId
                 });
                 this.StateHasChanged();
                 if (response.isSuccess)
@@ -184,5 +186,11 @@ public class ProductBase: ComponentBase
         }
 
         IsCategoryAddButtonDisabled = false;
+    }
+
+    protected async Task LoadCategories()
+    {
+        var result = await _productService.GetCategories();
+        CategoryList = result?.value;
     }
 }

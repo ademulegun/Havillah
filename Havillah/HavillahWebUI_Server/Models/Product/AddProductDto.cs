@@ -26,6 +26,7 @@ public class AddProductDto
     public string BrandName { get; set; }
     [Required(ErrorMessage = "Sizes is required")]
     public string Sizes { get; set; }
+    public int CategoryId { get; set; }
     [Required(ErrorMessage = "Colours is required")]
     public string Colours { get; set; }
 }

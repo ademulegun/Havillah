@@ -5,6 +5,8 @@ using Havillah.ApplicationServices.Authentication.Dto;
 using Havillah.ApplicationServices.Authentication.UseCases.Commands;
 using Havillah.ApplicationServices.Authentication.UseCases.Queries;
 using Havillah.ApplicationServices.Category.UseCases.AddCategory.Handler;
+using Havillah.ApplicationServices.Category.UseCases.Dto;
+using Havillah.ApplicationServices.Category.UseCases.GetCategories.Handler;
 using Havillah.ApplicationServices.Common.Options;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
@@ -46,7 +48,7 @@ if (!builder.Environment.IsDevelopment())
         options.Connect(azureAppConfigConnectionString).ConfigureRefresh((refreshOptions) =>
         {
             // indicates that all configuration should be refreshed when the given key has changed.
-            refreshOptions.Register(key: "Settings:Sentinel", refreshAll: true);
+            refreshOptions.Register(key: "sentinel", refreshAll: true);
             refreshOptions.SetCacheExpiration(TimeSpan.FromSeconds(5));
         }).UseFeatureFlags();
     });
@@ -133,6 +135,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseAzureAppConfiguration();
 }
+
+app.UseAzureAppConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -226,7 +230,19 @@ app.MapPost("/category", async([FromBody]ProductCategory category, IMediator med
 {
     var result = await mediator.Send(new AddCategoryCommand() { Name = category.Name });
     return result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result);
-}).WithName("AddCategory").WithTags("Category");
+}).WithName("AddCategory").WithTags("Category")
+    .Produces<Result>(StatusCodes.Status200OK)
+    .Produces<Result>(StatusCodes.Status400BadRequest);
+
+app.MapGet("/categories", async (IMediator mediator) =>
+    {
+        var categories = await mediator.Send(new GetCategoryQuery() );
+        return categories.IsSuccess ? Results.Ok(categories) :
+            !categories.Value.Any() ? Results.NotFound(categories) : Results.BadRequest(categories);
+    }).WithName("GetCategories").WithTags("Category")
+    .Produces<Result<List<GetCategoryDto>>>(StatusCodes.Status200OK)
+    .Produces<Result<List<GetCategoryDto>>>(StatusCodes.Status404NotFound)
+    .Produces<Result<List<GetCategoryDto>>>(StatusCodes.Status400BadRequest);
 
 #endregion
 

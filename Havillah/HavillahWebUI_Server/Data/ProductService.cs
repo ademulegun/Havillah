@@ -64,4 +64,13 @@ public class ProductService
         var deserializedResponse = JsonSerializer.Deserialize<Response<string>>(response);
         return deserializedResponse ?? new Response<string>();
     }
+    
+    public async Task<GetCategories.CategoriesResult?> GetCategories()
+    {
+        var productsResponse = await _httpClient.GetAsync("categories");
+        if (!productsResponse.IsSuccessStatusCode) return new Models.Product.GetCategories.CategoriesResult();
+        var serializedResponse = await productsResponse.Content.ReadAsStringAsync();
+        var categories = JsonSerializer.Deserialize<GetCategories.CategoriesResult>(serializedResponse);
+        return categories;
+    }
 }
