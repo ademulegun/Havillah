@@ -31,12 +31,8 @@ public class GetProductQuery: IRequest<Result<GetProductDto>>
                 DefaultSellingPrice = productFromDb.SellingPrice, Barcode = productFromDb.Barcode, Description = productFromDb.Description, 
                 BranchId = productFromDb.BranchId, CurrencyId = productFromDb.CurrencyId, ProductCode = productFromDb.ProductCode, 
                 ProductImage = productFromDb.ProductImage, ProductImageExtension = productFromDb.ProductImageExtension,
-<<<<<<< HEAD
                 Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName, 
                 Quantity = productFromDb.Quantity
-=======
-                Colours = productFromDb.Colours, Sizes = productFromDb.Sizes, BrandName = productFromDb.BrandName
->>>>>>> e34493e (modified espense with constructor)
             };
             return Result.Ok(product);
         }

@@ -25,31 +25,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Infrasructure", "H
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Persistence", "Havillah.Persistence\Havillah.Persistence.csproj", "{40773C4E-027C-44EB-B9D1-99CA2CB73A10}"
 EndProject
-<<<<<<< HEAD
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
-=======
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HavillahWebUI_Server", "HavillahWebUI_Server\HavillahWebUI_Server.csproj", "{A569BCB5-A418-46D2-8302-E72694FC08E6}"
->>>>>>> 56eb5a1 (trying)
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havillah.Shared", "Havillah.Shared\Havillah.Shared.csproj", "{A800A6C7-5589-4ADA-852B-5E71E56DAF19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-<<<<<<< HEAD
-	GlobalSection(NestedProjects) = preSolution
-		{1B707614-AD01-4EAF-AF21-3BE925602830} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
-		{B3812325-F1D2-49A3-9548-EC4A7E98F260} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
-		{9998EE04-25B4-4494-BB1E-154B873D1959} = {9D25D7D9-7E32-4E92-A737-58784770DA3D}
-		{66DFE785-AF25-4F5F-A696-41BB054BE630} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
-		{40773C4E-027C-44EB-B9D1-99CA2CB73A10} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
-		{A569BCB5-A418-46D2-8302-E72694FC08E6} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
-		{A800A6C7-5589-4ADA-852B-5E71E56DAF19} = {3254FB1C-17CD-4610-A1BD-80FB6B632DB1}
-	EndGlobalSection
-=======
->>>>>>> 56eb5a1 (trying)
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B707614-AD01-4EAF-AF21-3BE925602830}.Debug|Any CPU.Build.0 = Debug|Any CPU
@@ -75,12 +59,10 @@ Global
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A569BCB5-A418-46D2-8302-E72694FC08E6}.Release|Any CPU.Build.0 = Release|Any CPU
-<<<<<<< HEAD
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A800A6C7-5589-4ADA-852B-5E71E56DAF19}.Release|Any CPU.Build.0 = Release|Any CPU
-=======
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,9 +74,9 @@ Global
 		{66DFE785-AF25-4F5F-A696-41BB054BE630} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
 		{40773C4E-027C-44EB-B9D1-99CA2CB73A10} = {BAB86E46-0570-45A2-834E-7871A5917EB2}
 		{A569BCB5-A418-46D2-8302-E72694FC08E6} = {7D9BC64C-A968-446D-80F4-27C03366ABF3}
+		{A800A6C7-5589-4ADA-852B-5E71E56DAF19} = {3254FB1C-17CD-4610-A1BD-80FB6B632DB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {773D4861-FFEB-4C30-A351-F02BD18A9BA2}
->>>>>>> 56eb5a1 (trying)
 	EndGlobalSection
 EndGlobal

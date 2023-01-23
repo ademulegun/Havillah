@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Havillah.ApplicationServices.Expense.Dto
 {
-    internal class GetExpenseDto
+    public class GetExpenseDto
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
