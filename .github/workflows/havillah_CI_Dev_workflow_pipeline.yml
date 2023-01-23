@@ -5,9 +5,9 @@ name: havillah_dev_CI
 
 on:
   push:
-    branches: [ "development" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "development" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
