@@ -1,0 +1,20 @@
+name: HavillahIMS_CI
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  
+jobs:
+  build-and-release: 
+    runs-on: ubuntu-latest 
+    steps: 
+      - uses: actions/checkout@v3
+      - name: Run a hello world script
+        run : exho hello world
+      - name: run a multi-line hello world script
+        run : |
+          exho hello world
+          exho hello world
