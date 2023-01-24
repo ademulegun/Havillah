@@ -9,6 +9,7 @@ on:
 env: 
   IMAGE_NAME: havillahims
   IMAGE_TAG: ${{ github.run_id }}
+  DOCKER_REPO_NAME: femicancode
 
 jobs:
 
@@ -36,3 +37,32 @@ jobs:
       with:
         name: HIMSFrontendImage
         path: ${{ format('{0}/{1}.tar', github.workspace, env.IMAGE_NAME) }}
+        
+  deploy-image:
+      name: deploy image
+      runs-on: ubuntu-latest
+      needs: build-Frontend-image
+      environment:
+        name: Dev
+        
+      steps: 
+      - name: Download a Build Artifact
+        id: downloadImage
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: HIMSFrontendImage
+          
+      - name: Rehydrate the image
+        run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadImage.outputs.download-path, env.IMAGE_NAME) }}
+        
+      - name: DockerHub Login
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+          
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v3.3.0
+        with:
+          push: true
+          tags: $DOCKER_REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
