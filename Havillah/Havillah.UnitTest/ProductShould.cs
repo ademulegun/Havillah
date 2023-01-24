@@ -1,5 +1,5 @@
 ﻿namespace Havillah.UnitTest;
 
-public class Class1
+public class ProductShould
 {
 }
