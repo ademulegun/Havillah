@@ -12,7 +12,7 @@ on:
 
 jobs:
   build:
-
+    name: build-Havillahims
     runs-on: ubuntu-latest
 
     steps:
