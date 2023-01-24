@@ -15,9 +15,9 @@ jobs:
   build-Frontend-image:
     name: Build HavillahIms Frontend Container Image
     runs-on: ubuntu-latest
-    defaults:
-      run: 
-        working-directory: HavillahWebUI_Server
+#     defaults:
+#       run: 
+#         working-directory: HavillahWebUI_Server
 
     steps:
     - uses: actions/checkout@v3
