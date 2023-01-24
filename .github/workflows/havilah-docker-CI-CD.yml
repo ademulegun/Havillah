@@ -17,14 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run: 
-        working-directory: Havillah/HavillahWebUI_Server
+        working-directory: Havillah
 
     steps:
     - uses: actions/checkout@v3
     
       #Stage 1: Build
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
+      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
       
       #Stage 2: Save Image
     - name: save image as Tar
