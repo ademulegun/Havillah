@@ -52,15 +52,22 @@ jobs:
         with:
           name: HIMSFrontendImage
           
+        #Stage 1: Rehydrate the image
       - name: Rehydrate the image
         run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadImage.outputs.download-path, env.IMAGE_NAME) }}
         
+        #Stage 2: Login
       - name: DockerHub Login
         uses: docker/login-action@v1 
         with:
           username: ${{ secrets.DOCKERUSERNAME }}
           password: ${{ secrets.DOCKERPASSWORD }}
           
+        #Stage 3: Retag Image
+      - name: Re-Tag Image
+        run: docker tag $IMAGE_NAME:$IMAGE_TAG $DOCKER_REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
+          
+        #Stage 4: Build and push
       - name: Build and push Docker images
         uses: docker/build-push-action@v3.3.0
         with:
