@@ -22,7 +22,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore Havillah/Havillah/API/API.csproj
+      run: dotnet restore ./Havillah/Havillah/API/API.csproj
     - name: Build
       run: dotnet build --no-restore
     - name: Test
