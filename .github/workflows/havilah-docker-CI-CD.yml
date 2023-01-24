@@ -17,12 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run: 
-        working-directory: ./Havillah/HavillahWebUI_Server
+        working-directory: ./HavillahWebUI_Server
 
     steps:
     - uses: actions/checkout@v3
+    
+      #Stage 1: Build
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
       
+      #Stage 2: Save Image
     - name: save image as Tar
       run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.IMAGE_NAME) }} $IMAGE_NAME:$IMAGE_TAG
+    
+      #Stage 3: Upload to a location
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: HIMSFrontendImage
+        path: ${{ format('{0}/{1}.tar', github.workspace, env.IMAGE_NAME) }}
