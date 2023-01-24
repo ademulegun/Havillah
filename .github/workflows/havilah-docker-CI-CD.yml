@@ -1,0 +1,28 @@
+name: havilah docker CI CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+env: 
+  IMAGE_NAME: femicancode/havillahims
+  IMAGE_TAG: ${{ github.run_id }}
+
+jobs:
+
+  build-Frontend-image:
+    name: Build HavillahIms Frontend Container Image
+    runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: ./Havillah/HavillahWebUI_Server
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$IMAGE_TAG
+      
+    - name: save image as Tar
+      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.IMAGE_NAME) }} $IMAGE_NAME:$IMAGE_TAG
