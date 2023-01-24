@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 env: 
-  IMAGE_NAME: femicancode/havillahims
+  IMAGE_NAME: havillahims
   IMAGE_TAG: ${{ github.run_id }}
 
 jobs:
