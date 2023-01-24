@@ -1,5 +1,6 @@
 ﻿namespace Havillah.IntegrationTest;
 
-public class Class1
+public class ProductShould
 {
+    
 }
