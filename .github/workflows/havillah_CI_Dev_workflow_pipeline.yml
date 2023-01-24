@@ -5,9 +5,9 @@ name: Havillahims_CI_Pipeline_Workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "mains" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "mains" ]
   workflow_dispatch: 
 
 jobs:
