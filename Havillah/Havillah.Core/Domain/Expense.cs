@@ -44,7 +44,7 @@ namespace Havillah.Core.Domain
         
         public Expense SetExpenditure(decimal expenditure)
         {
-            if (decimal.Zero == 0) return this;
+            if (expenditure <= 0) return this;
             this.Expenditure = expenditure;
             return this;
         }
