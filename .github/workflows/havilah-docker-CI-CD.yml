@@ -69,4 +69,4 @@ jobs:
         uses: docker/build-push-action@v3.3.0
         with:
           push: true
-          tags: ${{ format('{0}/{1}:{2}', env.DOCKER_REPO_NAME, env.IMAGE_NAME, env.IMAGE_TAG) }}
+          tags: femicancode/havillahims:$IMAGE_TAG
