@@ -69,4 +69,4 @@ jobs:
         uses: docker/build-push-action@v3.3.0
         with:
           push: true
-          tags: femicancode/havillahims:$IMAGE_TAG
+          tags: $DOCKER_REPO_NAME/$IMAGE_NAME:$IMAGE_TAG
