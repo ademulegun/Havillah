@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run: 
-        working-directory: ./Havillah/HavillahWebUI_Server
+        working-directory: ./HavillahWebUI_Server
 
     steps:
     - uses: actions/checkout@v3
