@@ -83,8 +83,6 @@ jobs:
             resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
             dns-name-label: ${{ env.AZURE_CONTAINER_DNS_NAME_LABEL }}
             image: ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            registry-username: ${{ secrets.DOCKERUSERNAME }}
-            registry-password: ${{ secrets.DOCKERPASSWORD }}
             name: ${{env.AZURE_CONTAINER_INATANCE_NAME}}
             location: ${{env.AZURE_CONTAINER_INSTANCE_LOCATION}}
         
