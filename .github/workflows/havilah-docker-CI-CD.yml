@@ -78,7 +78,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
       - name: Create aci context
-        run:  az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} --dns-name-label ${{AZURE_CONTAINER_DNS_NAME_LABEL}} --ports 8089
+        run:  'az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} --dns-name-label ${{AZURE_CONTAINER_DNS_NAME_LABEL}} --ports 8089'
         
 
   
