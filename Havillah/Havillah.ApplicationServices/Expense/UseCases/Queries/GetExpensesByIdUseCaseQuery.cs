@@ -24,15 +24,23 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Queries
 
             public async Task<Result<GetExpenseDto>> Handle(GetExpensesByIdUseCaseQuery request, CancellationToken cancellationToken)
             {
-                var expense = await _repository.Find(predicate: x => x.Id == request.Id);
-                if (string.IsNullOrEmpty(expense.Title)) return Result.Fail<GetExpenseDto>("no expenses found");
-                return Result.Ok<GetExpenseDto>(new GetExpenseDto
+                try
                 {
-                    Title = expense.Title,
-                    Expenditure = expense.Expenditure,
-                    ExpenditureDate = expense.ExpenditureDate,
-                    ContractedBy = expense.ContractedBy
-                });
+                    var expense = await _repository.Find(predicate: x => x.Id == request.Id);
+                    if (expense.Id == default) return Result.Fail<GetExpenseDto>("no expenses found");
+                    return Result.Ok<GetExpenseDto>(new GetExpenseDto
+                    {
+                        Title = expense.Title,
+                        Expenditure = expense.Expenditure,
+                        ExpenditureDate = expense.ExpenditureDate,
+                        ContractedBy = expense.ContractedBy
+                    });
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    return Result.Fail<GetExpenseDto>("some error somewhere", "01");
+                }
             }
         }
 
