@@ -11,8 +11,8 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
   DOCKER_REPO_NAME: femicancode
   AZURE_CONTAINER_URL: havillahims.h6dhhyacgsa9aqex.southafricanorth.azurecontainer.io
-  AZURE_CONTAINER_DNS_NAME_LABEL: himsurl
-  AZURE_CONTAINER_INATANCE_NAME: hims
+  AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
+  AZURE_CONTAINER_INATANCE_NAME: havillah-ims
   AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
   AZURE_RESOURCE_GROUP: HIMS-RG
   AZURE_SUBSCRIPTIONID: 80e570d4-d806-4879-9214-67ba31976973
@@ -81,7 +81,7 @@ jobs:
         uses: 'azure/aci-deploy@v1'
         with:
             resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
-            dns-name-label: ${{ env.AZURE_CONTAINER_URL }}
+            dns-name-label: ${{ env.AZURE_CONTAINER_DNS_NAME_LABEL }}
             image: ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             registry-username: ${{ secrets.DOCKERUSERNAME }}
             registry-password: ${{ secrets.DOCKERPASSWORD }}
