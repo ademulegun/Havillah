@@ -11,8 +11,8 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
   DOCKER_REPO_NAME: femicancode
   AZURE_CONTAINER_URL: havillahims.h6dhhyacgsa9aqex.southafricanorth.azurecontainer.io
-  AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
-  AZURE_CONTAINER_INATANCE_NAME: havillah-ims
+  AZURE_CONTAINER_DNS_NAME_LABEL: himsurl
+  AZURE_CONTAINER_INATANCE_NAME: hims
   AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
   AZURE_RESOURCE_GROUP: HIMS-RG
 
