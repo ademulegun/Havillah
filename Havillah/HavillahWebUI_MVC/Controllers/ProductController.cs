@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> ba8a519 (trying)
 =======
 >>>>>>> 2ac5f8b (rebase done and dusted)
+=======
+>>>>>>> 7992f4cc39fa453cb8f4c4257f4727d6d6b65a4e
 
 namespace HavillahWebUI_MVC.Controllers;
 
@@ -17,8 +20,11 @@ public class Product : Controller
         return View();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2ac5f8b (rebase done and dusted)
+=======
+>>>>>>> 7992f4cc39fa453cb8f4c4257f4727d6d6b65a4e
 =======
 using System.Diagnostics;
 using Havillah.Shared.Product;
@@ -105,9 +111,12 @@ public class ProductController : Controller
         return PartialView("_ProductPartialView", model.ProductRoot);   
 >>>>>>> b18b03624866f944a75dad9ea6f579c65b37869b
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> ba8a519 (trying)
 =======
 >>>>>>> 2ac5f8b (rebase done and dusted)
+=======
+>>>>>>> 7992f4cc39fa453cb8f4c4257f4727d6d6b65a4e
     }
 }

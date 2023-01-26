@@ -19,7 +19,7 @@ public class EditUserUseCaseCommand : IRequest<Result>
         private readonly IRepository<ApplicationUser> _repository;
         public EditUserUseCaseCommandHandler(IRepository<ApplicationUser> repository)
         {
-            _repository = repository;
+            _repository = repository;   
         }
         public async Task<Result> Handle(EditUserUseCaseCommand request, CancellationToken cancellationToken)
         {

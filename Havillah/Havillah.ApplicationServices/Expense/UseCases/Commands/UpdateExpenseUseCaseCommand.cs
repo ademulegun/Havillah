@@ -42,7 +42,6 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
                 return Result.Fail("Something went wrong", "01");
             }
 
