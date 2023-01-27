@@ -34,11 +34,11 @@ jobs:
     
       #Stage 1: Build
     - name: Build the Docker image
-      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $ACRURL/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
       
       #Stage 2: Save Image
     - name: save image as Tar
-      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }} $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }} $ACRURL/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
     
       #Stage 3: Upload to a location
     - name: Upload a Build Artifact
@@ -60,11 +60,11 @@ jobs:
 
         #Stage 1: Build
       - name: Build the Docker image
-        run: docker build . --file API/Dockerfile --tag $DOCKER_REPO_NAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+        run: docker build . --file API/Dockerfile --tag $ACRURL/$BACKEND_IMAGE_NAME:$IMAGE_TAG
 
         #Stage 2: Save Image
       - name: save image as Tar
-        run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.BACKEND_IMAGE_NAME) }} $DOCKER_REPO_NAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+        run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.BACKEND_IMAGE_NAME) }} $ACRURL/$BACKEND_IMAGE_NAME:$IMAGE_TAG
 
         #Stage 3: Upload to a location
       - name: Upload a Build Artifact
@@ -104,10 +104,6 @@ jobs:
           username: ${{env.ACRNAME}}
           password: ${{secrets.AZUREACRPASSWORD}}
           login-server: ${{env.ACRURL}}
-          
-        #Stage 6: Tag the frontend image
-      - name: Re-Tag image
-        run: docker tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
         #Stage 7: Push to ACR
       - name: push image to acr
@@ -145,10 +141,6 @@ jobs:
           username: ${{env.ACRNAME}}
           password: ${{secrets.AZUREACRPASSWORD}}
           login-server: ${{env.ACRURL}}
-          
-        #Stage 6: Tag the frontend image
-      - name: Re-Tag image
-        run: docker tag $BACKEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
         
         #Stage 7: Push to ACR
       - name: push image to acr
