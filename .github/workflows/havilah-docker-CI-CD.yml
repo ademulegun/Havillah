@@ -34,7 +34,7 @@ jobs:
     
       #Stage 1: Build
     - name: Build the Docker image
-      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
       
       #Stage 2: Save Image
     - name: save image as Tar
@@ -60,7 +60,7 @@ jobs:
 
         #Stage 1: Build
       - name: Build the Docker image
-        run: docker build . --file API/Dockerfile --tag $BACKEND_IMAGE_NAME:$IMAGE_TAG
+        run: docker build . --file API/Dockerfile --tag $DOCKER_REPO_NAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
 
         #Stage 2: Save Image
       - name: save image as Tar
