@@ -17,6 +17,8 @@ env:
   AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
   AZURE_RESOURCE_GROUP: HIMS-RG
   AZURE_SUBSCRIPTIONID: 80e570d4-d806-4879-9214-67ba31976973
+  ACRNAME: sbkicksregistry1
+  ACRURL: sbkicksregistry1.azurecr.io
 
 jobs:
 
@@ -72,7 +74,7 @@ jobs:
           path: ${{ format('{0}/{1}.tar', github.workspace, env.BACKEND_IMAGE_NAME) }}
         
   deployfrontend-image:
-      name: deploy image
+      name: deploy frontend image
       runs-on: ubuntu-latest
       needs: build-frontend-image
       environment:
@@ -80,41 +82,66 @@ jobs:
         
       steps: 
       - name: Download a Build Artifact
-        id: downloadImage
+        id: downloadFrontendImage
         uses: actions/download-artifact@v3.0.2
         with:
           name: HIMSFrontendImage
           
         #Stage 1: Rehydrate the image
       - name: Rehydrate the image
-        run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadImage.outputs.download-path, env.IMAGE_NAME) }}
+        run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadFrontendImage.outputs.download-path, env.IMAGE_NAME) }}
         
-        #Stage 2: Login to dockerhub
-      - name: DockerHub Login
-        uses: docker/login-action@v1 
+        #Stage 2: Login to azure container registry
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
         with:
-          username: ${{ secrets.DOCKERUSERNAME }}
-          password: ${{ secrets.DOCKERPASSWORD }}
+          username: ${{env.ACRNAME}}
+          password: ${{secrets.AZUREACRPASSWORD}}
+          login-server: ${{env.ACRURL}}
           
-         #Stage 3: Push to dockerhub
-      - name: Build and Push docker container to registry
-        run: docker push ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        #Stage 3: Tag the frontend image
+      - name: Re-Tag image
+        run: docker tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
-        #Stage 3: Login to azure
-      - name: Azure Login
-        uses: Azure/login@v1.4.6
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        #Stage 3: Push to ACR
+      - name: push image to acr
+        run: docker image push $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
-        #Stage 3: Deploy to azure container instance
-      - name: 'Deploy to Azure Container Instances'
-        uses: 'azure/aci-deploy@v1'
+  deploybackend-image:
+      name: deploy backend image
+      runs-on: ubuntu-latest
+      needs: build-backend-image
+      environment:
+        name: Dev
+        
+      steps: 
+      - name: Download a Build Artifact
+        id: downloadBackendImage
+        uses: actions/download-artifact@v3.0.2
         with:
-            resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
-            dns-name-label: ${{ env.AZURE_CONTAINER_DNS_NAME_LABEL }}
-            image: ${{ env.DOCKER_REPO_NAME }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-            name: ${{env.AZURE_CONTAINER_INATANCE_NAME}}
-            location: ${{env.AZURE_CONTAINER_INSTANCE_LOCATION}}
+          name: HIMSBackendImage
+          
+        #Stage 1: Rehydrate the image
+      - name: Rehydrate the image
+        run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadBackendImage.outputs.download-path, env.IMAGE_NAME) }}
+        
+        #Stage 2: Login to azure container registry
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+          username: ${{env.ACRNAME}}
+          password: ${{secrets.AZUREACRPASSWORD}}
+          login-server: ${{env.ACRURL}}
+          
+        #Stage 3: Tag the frontend image
+      - name: Re-Tag image
+        run: docker tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+        
+        #Stage 3: Push to ACR
+      - name: push image to acr
+        run: docker image push $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+
+
         
 
   
