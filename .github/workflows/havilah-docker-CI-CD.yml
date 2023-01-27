@@ -113,7 +113,7 @@ jobs:
         
       - name: deploy frontend to cntainer instance
         run: |
-             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.FRONTEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{secrets.ACRNAME}} --registry-password ${{ secrets.AZUREACRPASSWORD }} --dns-name-label ${{env.FRONTEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.FRONTEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{env.ACRNAME}} --registry-password ${{ secrets.AZUREACRPASSWORD }} --dns-name-label ${{env.FRONTEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
         
         
         
@@ -155,7 +155,7 @@ jobs:
         
       - name: deploy backend to cntainer instance
         run: |
-             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.BACKEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.BACKEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{secrets.ACRNAME}} --registry-password ${{ secrets.AZUREACRPASSWORD }} --dns-name-label ${{env.BACKEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.BACKEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.BACKEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{env.ACRNAME}} --registry-password ${{ secrets.AZUREACRPASSWORD }} --dns-name-label ${{env.BACKEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
              
       
     
