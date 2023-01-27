@@ -91,6 +91,12 @@ jobs:
       - name: Rehydrate the image
         run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadFrontendImage.outputs.download-path, env.FRONTEND_IMAGE_NAME) }}
         
+        #Stage 2: Login to azure
+      - name: Azure Login
+        uses: Azure/login@v1.4.6
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
         #Stage 2: Login to azure container registry
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
@@ -124,6 +130,12 @@ jobs:
         #Stage 1: Rehydrate the image
       - name: Rehydrate the image
         run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadBackendImage.outputs.download-path, env.BACKEND_IMAGE_NAME) }}
+        
+        #Stage 2: Login to azure
+      - name: Azure Login
+        uses: Azure/login@v1.4.6
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
         
         #Stage 2: Login to azure container registry
       - name: Azure Container Registry Login
