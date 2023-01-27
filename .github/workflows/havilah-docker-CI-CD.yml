@@ -12,7 +12,7 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
   DOCKER_REPO_NAME: femicancode
   AZURE_CONTAINER_URL: havillahims.h6dhhyacgsa9aqex.southafricanorth.azurecontainer.io
-  AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
+  FRONTEND-AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
   AZURE_CONTAINER_INATANCE_NAME: havillah-ims
   AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
   AZURE_RESOURCE_GROUP: HIMS-RG
@@ -116,13 +116,11 @@ jobs:
           password: ${{secrets.AZUREACRPASSWORD}}
           login-server: ${{env.ACRURL}}
           
-        #Stage 6: Tag the frontend image
-      - name: Re-Tag image
-        run: docker tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      - name: deploy frontend to cntainer instance
+        run: |
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.DOCKER_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 8088 --registry-username ${{secrets.DOCKERUSERNAME}} --registry-password ${{ secrets.DOCKERPASSWORD }} --dns-name-label ${{env.FRONTEND-AZURE_CONTAINER_DNS_NAME_LABEL}}
         
-        #Stage 7: Push to ACR
-      - name: push image to acr
-        run: docker image push $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+        
         
   deploybackend-image:
       name: deploy backend image
@@ -158,22 +156,8 @@ jobs:
         uses: Azure/login@v1.4.6
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-        #Stage 5: Login to azure container registry
-      - name: Azure Container Registry Login
-        uses: Azure/docker-login@v1
-        with:
-          username: ${{env.ACRNAME}}
-          password: ${{secrets.AZUREACRPASSWORD}}
-          login-server: ${{env.ACRURL}}
-          
-        #Stage 6: Tag the frontend image
-      - name: Re-Tag image
-        run: docker tag $BACKEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
-        
-        #Stage 7: Push to ACR
-      - name: push image to acr
-        run: docker image push $ACRNAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+      
+    
 
 
         
