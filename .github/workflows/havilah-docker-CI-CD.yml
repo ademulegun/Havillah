@@ -91,13 +91,24 @@ jobs:
       - name: Rehydrate the image
         run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadFrontendImage.outputs.download-path, env.FRONTEND_IMAGE_NAME) }}
         
-        #Stage 2: Login to azure
+        #Stage 2: Login to dockerhub
+      - name: DockerHub Login
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+          
+        #Stage 3: Push to dockerhub
+      - name: Build and Push docker container to registry
+        run: docker push ${{ env.DOCKER_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        
+        #Stage 4: Login to azure
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-        #Stage 2: Login to azure container registry
+        #Stage 5: Login to azure container registry
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
@@ -105,11 +116,11 @@ jobs:
           password: ${{secrets.AZUREACRPASSWORD}}
           login-server: ${{env.ACRURL}}
           
-        #Stage 3: Tag the frontend image
+        #Stage 6: Tag the frontend image
       - name: Re-Tag image
         run: docker tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
-        #Stage 3: Push to ACR
+        #Stage 7: Push to ACR
       - name: push image to acr
         run: docker image push $ACRNAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
@@ -131,13 +142,24 @@ jobs:
       - name: Rehydrate the image
         run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadBackendImage.outputs.download-path, env.BACKEND_IMAGE_NAME) }}
         
-        #Stage 2: Login to azure
+        #Stage 2: Login to dockerhub
+      - name: DockerHub Login
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+          
+        #Stage 3: Push to dockerhub
+      - name: Build and Push docker container to registry
+        run: docker push ${{ env.DOCKER_REPO_NAME }}/${{ env.BACKEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        
+        #Stage 4: Login to azure
       - name: Azure Login
         uses: Azure/login@v1.4.6
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-        #Stage 2: Login to azure container registry
+        #Stage 5: Login to azure container registry
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
@@ -145,11 +167,11 @@ jobs:
           password: ${{secrets.AZUREACRPASSWORD}}
           login-server: ${{env.ACRURL}}
           
-        #Stage 3: Tag the frontend image
+        #Stage 6: Tag the frontend image
       - name: Re-Tag image
         run: docker tag $BACKEND_IMAGE_NAME:$IMAGE_TAG $ACRNAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
         
-        #Stage 3: Push to ACR
+        #Stage 7: Push to ACR
       - name: push image to acr
         run: docker image push $ACRNAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
 
