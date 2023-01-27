@@ -12,8 +12,10 @@ env:
   IMAGE_TAG: ${{ github.run_id }}
   DOCKER_REPO_NAME: femicancode
   AZURE_CONTAINER_URL: havillahims.h6dhhyacgsa9aqex.southafricanorth.azurecontainer.io
-  FRONTEND-AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
-  AZURE_CONTAINER_INATANCE_NAME: havillah-ims
+  FRONTEND_AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
+  FRONTEND_AZURE_CONTAINER_INATANCE_NAME: havillah-ims
+  BACKEND_AZURE_CONTAINER_DNS_NAME_LABEL: havillahapi
+  BACKEND_AZURE_CONTAINER_INATANCE_NAME: havillah-api
   AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
   AZURE_RESOURCE_GROUP: HIMS-RG
   AZURE_SUBSCRIPTIONID: 80e570d4-d806-4879-9214-67ba31976973
@@ -109,6 +111,10 @@ jobs:
       - name: push image to acr
         run: docker image push $ACRURL/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
         
+      - name: deploy frontend to cntainer instance
+        run: |
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.FRONTEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{secrets.DOCKERUSERNAME}} --registry-password ${{ secrets.DOCKERPASSWORD }} --dns-name-label ${{env.FRONTEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
+        
         
         
   deploybackend-image:
@@ -145,6 +151,10 @@ jobs:
         #Stage 7: Push to ACR
       - name: push image to acr
         run: docker image push $ACRURL/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+        
+      - name: deploy backend to cntainer instance
+        run: |
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.BACKEND_AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.ACRURL }}/${{ env.BACKEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 80 --registry-username ${{secrets.DOCKERUSERNAME}} --registry-password ${{ secrets.DOCKERPASSWORD }} --dns-name-label ${{env.BACKEND_AZURE_CONTAINER_DNS_NAME_LABEL}}
              
       
     
