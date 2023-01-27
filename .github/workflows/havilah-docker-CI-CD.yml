@@ -34,11 +34,11 @@ jobs:
     
       #Stage 1: Build
     - name: Build the Docker image
-      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $FRONTEND_IMAGE_NAME:$IMAGE_TAG
       
       #Stage 2: Save Image
     - name: save image as Tar
-      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }} $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }} $FRONTEND_IMAGE_NAME:$IMAGE_TAG
     
       #Stage 3: Upload to a location
     - name: Upload a Build Artifact
@@ -60,11 +60,11 @@ jobs:
 
         #Stage 1: Build
       - name: Build the Docker image
-        run: docker build . --file API/Dockerfile --tag $DOCKER_REPO_NAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+        run: docker build . --file API/Dockerfile --tag $BACKEND_IMAGE_NAME:$IMAGE_TAG
 
         #Stage 2: Save Image
       - name: save image as Tar
-        run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.BACKEND_IMAGE_NAME) }} $DOCKER_REPO_NAME/$BACKEND_IMAGE_NAME:$IMAGE_TAG
+        run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.BACKEND_IMAGE_NAME) }} $BACKEND_IMAGE_NAME:$IMAGE_TAG
 
         #Stage 3: Upload to a location
       - name: Upload a Build Artifact
