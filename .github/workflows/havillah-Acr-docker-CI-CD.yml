@@ -1,4 +1,4 @@
-name: havilah docker CI CD
+name: havilah Acr docker CI CD
 
 on:
   push:
