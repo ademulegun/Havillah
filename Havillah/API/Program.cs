@@ -306,31 +306,40 @@ app.MapPut("/updateExpense", async ([FromBody] UpdateExpenseDto model, IMediator
 app.MapPost("/addExpense", async ([FromBody] AddExpenseDto model, IMediator mediator) =>
 {
     var result = await mediator.Send(new AddExpenseCommand() { AddExpenseDto = model });
-    return Results.Ok(result);
-}).WithName("AddExpense").WithTags("Expense");
+    return !result.IsSuccess ? Results.BadRequest(result.ResponseCode) :
+    Results.Ok(result);
+}).WithName("AddExpense").WithTags("Expense")
+.Produces<Result>(StatusCodes.Status200OK)
+.Produces<Result>(StatusCodes.Status400BadRequest);
 
 app.MapGet("/getExpense/{id:guid}", async (Guid id, IMediator mediator) =>
 {
     var result = await mediator.Send(new GetExpensesByIdUseCaseQuery() { Id = id });
-    return !result.IsSuccess ? Results.BadRequest(result.Value) : Results.Ok(result.Value);
+    return result.Value.Id == default ? Results.NotFound(result.Message)
+    : result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Message);
 }).WithName("GetExpenseById").WithTags("Expense")
-.Produces(StatusCodes.Status200OK)
-.Produces(StatusCodes.Status400BadRequest);
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status302Found)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status400BadRequest);
 
 app.MapGet("/getExpense/{date}", async (DateTime ExpenditureDate, IMediator mediator) =>
 {
     var result = await mediator.Send(new GetExpensesByDateUseCaseQuery() { ExpenditureDate = ExpenditureDate });
-    return !result.IsSuccess ? Results.BadRequest(result.Value) : Results.Ok(result.Value);
+    return result?.Value.ExpenditureDate == null  ? Results.NotFound(result) : result.IsSuccess ? Results.Ok(result.Value)
+    : Results.BadRequest(result.Value);
 }).WithName("GetExpenseByDate").WithTags("Expense")
-.Produces(StatusCodes.Status200OK)
-.Produces(StatusCodes.Status400BadRequest);
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status400BadRequest)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status404NotFound);
 
 app.MapGet("/getExpenses", async (IMediator mediator) =>
 {
     var expenses = await mediator.Send(new GetExpensesUseCaseQuery());
-    return !expenses.IsSuccess ? Results.BadRequest(expenses.Value) : Results.Ok(expenses.Value);
+    return !expenses.Value.Any() ? Results.NotFound(expenses.Message) : expenses.IsSuccess ? Results.Ok(expenses) :
+    Results.BadRequest(expenses);
 }).WithName("GetAllExpenses").WithTags("Expense")
 .Produces<List<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<List<GetExpenseDto>>(StatusCodes.Status404NotFound)
 .Produces<List<GetExpenseDto>>(StatusCodes.Status400BadRequest);
 #endregion
 app.Run();
