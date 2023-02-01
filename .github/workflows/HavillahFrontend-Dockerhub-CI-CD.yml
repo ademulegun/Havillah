@@ -1,0 +1,108 @@
+
+
+
+
+name: havilah docker CI CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+env: 
+  FRONTEND_IMAGE_NAME: havillahims
+  IMAGE_TAG: ${{ github.run_id }}
+  DOCKER_REPO_NAME: femicancode
+  AZURE_CONTAINER_URL: havillahims.h6dhhyacgsa9aqex.southafricanorth.azurecontainer.io
+  FRONTEND-AZURE_CONTAINER_DNS_NAME_LABEL: havillahims
+  AZURE_CONTAINER_INATANCE_NAME: havillah-ims
+  AZURE_CONTAINER_INSTANCE_LOCATION: South Africa North
+  AZURE_RESOURCE_GROUP: HIMS-RG
+  AZURE_SUBSCRIPTIONID: 80e570d4-d806-4879-9214-67ba31976973
+  ACRNAME: sbkicksregistry1
+  ACRURL: sbkicksregistry1.azurecr.io
+
+jobs:
+
+  build-image:
+    name: Build HavillahIms Frontend Container Image
+    runs-on: ubuntu-latest
+    defaults:
+      run: 
+        working-directory: Havillah
+
+    steps:
+    - uses: actions/checkout@v3
+    
+      #Stage 1: Build
+    - name: Build the Docker image
+      run: docker build . --file HavillahWebUI_Server/Dockerfile --tag $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+      
+      #Stage 2: Save Image
+    - name: save image as Tar
+      run: docker save -o ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }} $DOCKER_REPO_NAME/$FRONTEND_IMAGE_NAME:$IMAGE_TAG
+    
+      #Stage 3: Upload to a location
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: HIMSFrontendImage
+        path: ${{ format('{0}/{1}.tar', github.workspace, env.FRONTEND_IMAGE_NAME) }}
+        
+        
+  deploy-image:
+      name: deploy frontend image
+      runs-on: ubuntu-latest
+      needs: build-image
+      environment:
+        name: Dev
+        
+      steps: 
+      - name: Download a Build Artifact
+        id: downloadFrontendImage
+        uses: actions/download-artifact@v3.0.2
+        with:
+          name: HIMSFrontendImage
+          
+        #Stage 1: Rehydrate the image
+      - name: Rehydrate the image
+        run: docker load -i ${{ format('{0}/{1}.tar', steps.downloadFrontendImage.outputs.download-path, env.FRONTEND_IMAGE_NAME) }}
+        
+        #Stage 2: Login to dockerhub
+      - name: DockerHub Login
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERUSERNAME }}
+          password: ${{ secrets.DOCKERPASSWORD }}
+          
+        #Stage 3: Push to dockerhub
+      - name: Build and Push docker container to registry
+        run: docker push ${{ env.DOCKER_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+        
+        #Stage 4: Login to azure
+      - name: Azure Login
+        uses: Azure/login@v1.4.6
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+        #Stage 5: Login to azure container registry
+      - name: Azure Container Registry Login
+        uses: Azure/docker-login@v1
+        with:
+          username: ${{env.ACRNAME}}
+          password: ${{secrets.AZUREACRPASSWORD}}
+          login-server: ${{env.ACRURL}}
+          
+      - name: deploy frontend to cntainer instance
+        run: |
+             az container create --resource-group ${{env.AZURE_RESOURCE_GROUP}} --name ${{env.AZURE_CONTAINER_INATANCE_NAME}} --image ${{ env.DOCKER_REPO_NAME }}/${{ env.FRONTEND_IMAGE_NAME }}:${{ env.IMAGE_TAG }} --cpu 1 --memory 2 --ports 8088 --registry-username ${{secrets.DOCKERUSERNAME}} --registry-password ${{ secrets.DOCKERPASSWORD }} --dns-name-label ${{env.FRONTEND-AZURE_CONTAINER_DNS_NAME_LABEL}}
+             
+      
+    
+
+
+        
+
+  
+
