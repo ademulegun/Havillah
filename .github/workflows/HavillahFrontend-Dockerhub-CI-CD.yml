@@ -2,7 +2,7 @@
 
 
 
-name: havilah docker CI CD
+name: havillah frontend docker CI CD
 
 on:
   push:
