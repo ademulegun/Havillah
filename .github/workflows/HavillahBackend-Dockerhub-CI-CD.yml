@@ -1,4 +1,4 @@
-name: havilah docker CI CD
+name: havillah backend docker CI CD
 
 on:
   push:
