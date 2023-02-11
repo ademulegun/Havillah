@@ -1,0 +1,40 @@
+#Creating Pods
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: havillah-backend-api
+  labels:
+    component: havillah-backend
+spec:
+  containers:
+    - name: havillah-backend
+      image: femicancode/havillahapi
+      ports: 
+        - containerPort: 5001
+          
+---
+#Creating Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: havillah-backend-api-deployment
+  labels:
+    app: havillah-backend-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: havillah-backend-api
+  template:
+    metadata:
+      labels:
+        app: havillah-backend-api
+    spec:
+      containers:
+        - name: havillah-backend
+          image: femicancode/havillahapi
+          ports:
+            - containerPort: 5001
+---
+#Creating Services
+
