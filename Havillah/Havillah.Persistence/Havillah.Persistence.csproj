@@ -32,8 +32,7 @@
       <Content Include="appsettings.json">
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+        <CopyToPublishDirectory>Never</CopyToPublishDirectory>
       </Content>
     </ItemGroup>
-
 </Project>
