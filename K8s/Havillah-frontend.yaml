@@ -1,0 +1,18 @@
+#Creating Pods
+apiVersion: v1
+kind: Pod
+metadata:
+    name: havillah-frontend
+    labels:
+      component: frontend
+spec:
+    containers: 
+      - name: frontend
+        image: femicancode/havillahims
+        ports:
+          - containerPort: 8080
+            
+#Creating Deployment
+  
+#Creating Services
+    
