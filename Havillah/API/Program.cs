@@ -135,7 +135,6 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseAzureAppConfiguration();
 }
-app.UseAzureAppConfiguration();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
