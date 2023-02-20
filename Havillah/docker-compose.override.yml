@@ -4,18 +4,34 @@ services:
   api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings:HavillahConnection=data source=havillahdb,1433;initial catalog=HavillahInventoryManagementDb;TrustServerCertificate=True;User Id=sa;Password=Password@12#3;MultipleActiveResultSets=true;"
+    depends_on:
+      - Db
     ports:
-      - "80"
-      - "443"
+      - "8000:80"
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.ASP.NET/Https:/root/.aspnet/https:ro
+    
+    
   havillahwebui_server:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
+    depends_on:
+      - api
     ports:
-      - "80"
-      - "443"
+      - "8001:80"
     volumes:
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ~/.ASP.NET/Https:/root/.aspnet/https:ro
+  
+  Db:
+    container_name: havillahdb
+    restart: always
+    ports:
+      - "1333:1433"
+    environment:
+      - SA_PASSWORD=Password@$$123
+      - ACCEPT_EULA=Y
+    volumes:
+      - data-volume:/var/opt/mssql/data
