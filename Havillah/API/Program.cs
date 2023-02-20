@@ -41,7 +41,7 @@ var connectionString = builder.Configuration.GetConnectionString("HavillahConnec
 
 if (!builder.Environment.IsDevelopment())
 {
-    var azureAppConfigConnectionString = "Endpoint=https://havillahppconfiguration.azconfig.io;Id=kQSP-ly-s0:jjQJXwlw5oYG3XjTMLUD;Secret=hdhZzofORr/a1MjNCMehhaP1drKHN5WEnvdFj960WnE=";
+    var azureAppConfigConnectionString = "Endpoint=https://himsbackendappconfig.azconfig.io;Id=DU2q-ly-s0:zxCuonWONKo+FDi3xCHl;Secret=dTbXlp2lA6c/gnfJvgXIghAv3hR+TxGfOGKX0sSMhFk=";
     // Load configuration from Azure App Configuration
     builder.Configuration.AddAzureAppConfiguration(options =>
     {

@@ -1,17 +1,20 @@
 version: '3.4'
 
 services:
-  HavillahIMSDb:
-    image:
-  api:
-    image: ${DOCKER_REGISTRY-}api
-    build:
-      context: .
-      dockerfile: API/Dockerfile
-
   havillahwebui_server:
-    image: ${DOCKER_REGISTRY-}havillahwebuiserver
+    image: femicancode/havillahims:latest
     build:
       context: .
       dockerfile: HavillahWebUI_Server/Dockerfile
+    depends_on:
+      - api
+      
+  api:
+    image: femicancode/havillahapi:latest
+    build:
+      context: .
+      dockerfile:  API/Dockerfile 
+    
+  Db:
+    image: mcr.microsoft.com/mssql/server
 
