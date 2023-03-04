@@ -24,26 +24,21 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Queries
             {
                 try
                 {
-                    List<GetExpenseDto> listOfExpenses = new List<GetExpenseDto>();
                     var expenses = await _repository.GetAll();
-                    var companyexpenses = expenses as Core.Domain.Expense[] ?? expenses.ToArray();
-                    if (!companyexpenses.Any()) return Result.Fail<List<GetExpenseDto>>("no available expenses found");
-                    foreach (var exp in companyexpenses)
+                    if (!expenses.Any()) return Result.Ok<List<GetExpenseDto>>(new List<GetExpenseDto>());
+                    List<GetExpenseDto> expenseList = expenses.Select(v => new GetExpenseDto()
                     {
-                        listOfExpenses.Add(new GetExpenseDto
-                        {
-                            Title = exp.Title,
-                            Expenditure = exp.Expenditure,
-                            ExpenditureDate = exp.ExpenditureDate,
-                            ContractedBy = exp.ContractedBy
-                        });
-                    }
-                    return Result.Ok(listOfExpenses);
+                        Title = v.Title,
+                        Expenditure = v.Expenditure,
+                        ExpenditureDate = v.ExpenditureDate,
+                        ContractedBy = v.ContractedBy
+                    }).ToList();
+                    return Result.Ok(expenseList);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
-                    return Result.Fail<List<GetExpenseDto>>(e.Message);
+                    return Result.Fail<List<GetExpenseDto>>("An error occured");
                 }
             }
         }

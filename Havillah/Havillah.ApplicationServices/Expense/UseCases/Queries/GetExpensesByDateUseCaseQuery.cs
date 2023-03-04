@@ -26,14 +26,15 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Queries
                 try
                 {
                     var exp = await _repository.Find(predicate: x => x.ExpenditureDate == request.ExpenditureDate);
-                    if (exp.ExpenditureDate == default) return Result.Fail<GetExpenseDto>("Nothing found that matches the request");
-                    return Result.Ok(new GetExpenseDto
+                    if (exp.ExpenditureDate == default) return Result.Ok<GetExpenseDto>(new GetExpenseDto());
+                    var expense = new GetExpenseDto()
                     {
                         Title = exp.Title,
                         Expenditure = exp.Expenditure,
                         ExpenditureDate = exp.ExpenditureDate,
                         ContractedBy = exp.ContractedBy
-                    });
+                    };
+                    return Result.Ok(expense);
                 }
                 catch (Exception e)
                 {
