@@ -31,6 +31,7 @@ public class DatabaseContext: IdentityDbContext<ApplicationUser, IdentityRole<Gu
     public DbSet<Product> Product { get; set; }
     public DbSet<ProductCategory> Categories { get; set; }
     public DbSet<Stock> Stocks { get; set; }
+    public DbSet<Expense> Expenses { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

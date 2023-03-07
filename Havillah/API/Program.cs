@@ -8,6 +8,9 @@ using Havillah.ApplicationServices.Category.UseCases.AddCategory.Handler;
 using Havillah.ApplicationServices.Category.UseCases.Dto;
 using Havillah.ApplicationServices.Category.UseCases.GetCategories.Handler;
 using Havillah.ApplicationServices.Common.Options;
+using Havillah.ApplicationServices.Expense.Dto;
+using Havillah.ApplicationServices.Expense.UseCases.Commands;
+using Havillah.ApplicationServices.Expense.UseCases.Queries;
 using Havillah.ApplicationServices.Extensions;
 using Havillah.ApplicationServices.Interfaces;
 using Havillah.ApplicationServices.Product.AddProduct.Handlers;
@@ -88,6 +91,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 builder.Services.AddAuthorization();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // builder.Services.AddSwaggerGen(options =>
@@ -283,6 +287,57 @@ app.MapGet("/product/{id}", async (Guid id, IMediator mediator) =>
     .Produces<Result<GetProductDto>>(StatusCodes.Status400BadRequest)
     .Produces<Result<GetProductDto>>(StatusCodes.Status404NotFound);
 
+#endregion
+
+#region Expense
+app.MapPut("/updateExpense", async ([FromBody] UpdateExpenseDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new UpdateExpenseUseCaseCommand() { ExpenseDto = model });
+    return result.ResponseCode == "404" ? Results.NotFound(result.Message) :
+    result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result);
+}).WithName("UpdateExpense").WithTags("Expense")
+.Produces<Result>(StatusCodes.Status200OK)
+.Produces<Result>(StatusCodes.Status404NotFound)
+.Produces<Result>(StatusCodes.Status400BadRequest);
+
+app.MapPost("/addExpense", async ([FromBody] AddExpenseDto model, IMediator mediator) =>
+{
+    var result = await mediator.Send(new AddExpenseCommand() { AddExpenseDto = model });
+    return !result.IsSuccess ? Results.BadRequest(result.ResponseCode) :
+    Results.Ok(result);
+}).WithName("AddExpense").WithTags("Expense")
+.Produces<Result>(StatusCodes.Status200OK)
+.Produces<Result>(StatusCodes.Status400BadRequest);
+
+app.MapGet("/getExpense/{id:guid}", async (Guid id, IMediator mediator) =>
+{
+    var result = await mediator.Send(new GetExpensesByIdUseCaseQuery() { Id = id });
+    return result.Value.Id == default ? Results.NotFound(result.Value)
+    : result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Value);
+}).WithName("GetExpenseById").WithTags("Expense")
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status302Found)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status400BadRequest);
+
+app.MapGet("/getExpense/{date}", async (DateTime ExpenditureDate, IMediator mediator) =>
+{
+    var result = await mediator.Send(new GetExpensesByDateUseCaseQuery() { ExpenditureDate = ExpenditureDate });
+    return result?.Value.ExpenditureDate == null ? Results.NotFound(result) : result.IsSuccess ? Results.Ok(result.Value)
+    : Results.BadRequest(result.Value);
+}).WithName("GetExpenseByDate").WithTags("Expense")
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status400BadRequest)
+.Produces<Result<GetExpenseDto>>(StatusCodes.Status404NotFound);
+
+app.MapGet("/getExpenses", async (IMediator mediator) =>
+{
+    var expenses = await mediator.Send(new GetExpensesUseCaseQuery());
+    return !expenses.Value.Any() ? Results.NotFound(expenses.Message) : expenses.IsSuccess ? Results.Ok(expenses) :
+    Results.BadRequest(expenses);
+}).WithName("GetAllExpenses").WithTags("Expense")
+.Produces<List<GetExpenseDto>>(StatusCodes.Status200OK)
+.Produces<List<GetExpenseDto>>(StatusCodes.Status404NotFound)
+.Produces<List<GetExpenseDto>>(StatusCodes.Status400BadRequest);
 #endregion
 
 app.Run();

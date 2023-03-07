@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Havillah.Persistense.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221229225352_chngedisrequiredtofalse")]
-    partial class chngedisrequiredtofalse
+    [Migration("20230304001057_AddedExpenseTable")]
+    partial class AddedExpenseTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,7 +114,7 @@ namespace Havillah.Persistense.Migrations
                             Id = new Guid("363b37a0-c306-4472-a405-4b576334cca0"),
                             AccessFailedCount = 0,
                             Address = "No 1 Jango steet, wild wild west, Texas",
-                            ConcurrencyStamp = "18231cf2-f40d-4dee-9461-9c17b77ecfe6",
+                            ConcurrencyStamp = "5dc152a6-65b9-4f4f-948f-aaf85f59a3d6",
                             Email = "femi.ibitolu@gmail.com",
                             EmailConfirmed = true,
                             FirstName = "Babafemi",
@@ -122,7 +122,7 @@ namespace Havillah.Persistense.Migrations
                             LockoutEnabled = false,
                             MiddleName = "Oluwaseyi",
                             NormalizedUserName = "FEMI.IBITOLU@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIaT7dn3JDhId7tHsxjcKBmtQJQCX++Oh2u4PHWkl6JDI63/4XV6OrWCecVce4uixg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI2t8XM0sM8n3ziGrjCRr4vTwlovoM1ApgfOURGa8zKjH78zRjQR5kuqbfQRia9ZQA==",
                             PhoneNumber = "08122310370",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
@@ -158,6 +158,38 @@ namespace Havillah.Persistense.Migrations
                     b.ToTable("Customer");
                 });
 
+            modelBuilder.Entity("Havillah.Core.Domain.Expense", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ContractedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Expenditure")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("ExpenditureDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Expenses");
+                });
+
             modelBuilder.Entity("Havillah.Core.Domain.Product", b =>
                 {
                     b.Property<Guid>("Id")
@@ -170,9 +202,18 @@ namespace Havillah.Persistense.Migrations
                     b.Property<int>("BranchId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BrandName")
+                        .HasColumnType("nvarchar(90)");
+
                     b.Property<double>("BuyingPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("float(18)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Colours")
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("Datetime2");
@@ -184,7 +225,7 @@ namespace Havillah.Persistense.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("Datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -219,12 +260,37 @@ namespace Havillah.Persistense.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("float(18)");
 
+                    b.Property<string>("Sizes")
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<int>("UnitOfMeasureId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("Havillah.Core.Domain.ProductCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("Datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Havillah.Core.Domain.PurchaseParty", b =>
@@ -281,7 +347,7 @@ namespace Havillah.Persistense.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Stock");
+                    b.ToTable("Stocks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -322,14 +388,14 @@ namespace Havillah.Persistense.Migrations
                         new
                         {
                             Id = new Guid("ae215c6c-2f89-4646-a1cc-e3c1287bd6e4"),
-                            ConcurrencyStamp = "ea9256ad-beb0-48dd-9481-da7e6ae80661",
+                            ConcurrencyStamp = "a8353520-6eaf-479d-a22b-c5aef38f099d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = new Guid("ec2bfe1e-0fa4-4900-a312-1848f542b61a"),
-                            ConcurrencyStamp = "82949f87-aa58-4288-af72-6da937b10065",
+                            ConcurrencyStamp = "74937f6d-f2fc-4f81-ac51-abebc2b99a68",
                             Name = "SalesPerson",
                             NormalizedName = "SALESPERSON"
                         });
@@ -443,6 +509,17 @@ namespace Havillah.Persistense.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Havillah.Core.Domain.Product", b =>
+                {
+                    b.HasOne("Havillah.Core.Domain.ProductCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("Havillah.Core.Domain.Stock", b =>
