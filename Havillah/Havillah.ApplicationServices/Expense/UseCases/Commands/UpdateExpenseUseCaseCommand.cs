@@ -28,7 +28,7 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
             try
             {
                 var expenseFromDb = await _repository.Find(e => e.Id == request.ExpenseDto.Id);
-                if (expenseFromDb.Id == default) return Result.Fail("such expense does not exist");
+                if (expenseFromDb.Id == default) return Result.Ok<UpdateExpenseDto>(new UpdateExpenseDto());
                 expenseFromDb.SetDescription(request.ExpenseDto.Description).SetExpenditure(request.ExpenseDto.Expenditure)
                 .SetTitle(request.ExpenseDto.Title);
                 request.ExpenseDto.ExpenditureDate = expenseFromDb.ExpenditureDate;

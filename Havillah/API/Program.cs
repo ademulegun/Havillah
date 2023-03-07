@@ -312,8 +312,8 @@ app.MapPost("/addExpense", async ([FromBody] AddExpenseDto model, IMediator medi
 app.MapGet("/getExpense/{id:guid}", async (Guid id, IMediator mediator) =>
 {
     var result = await mediator.Send(new GetExpensesByIdUseCaseQuery() { Id = id });
-    return result.Value.Id == default ? Results.NotFound(result.Message)
-    : result.IsSuccess ? Results.Ok(result) : Results.BadRequest(result.Message);
+    return result.Value.Id == default ? Results.NotFound(result.Value)
+    : result.IsSuccess ? Results.Ok(result.Value) : Results.BadRequest(result.Value);
 }).WithName("GetExpenseById").WithTags("Expense")
 .Produces<Result<GetExpenseDto>>(StatusCodes.Status200OK)
 .Produces<Result<GetExpenseDto>>(StatusCodes.Status302Found)

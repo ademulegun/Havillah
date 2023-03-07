@@ -10,7 +10,7 @@ public class Repository<T>: IRepository<T> where T: class
     private readonly DatabaseContext _context;
     public Repository(DatabaseContext context)
     {
-        this._context = context;
+        _context = context;
     }
     
     public async Task Add(T model)

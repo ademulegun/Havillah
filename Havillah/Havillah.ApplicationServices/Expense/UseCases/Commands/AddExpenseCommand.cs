@@ -18,7 +18,7 @@ namespace Havillah.ApplicationServices.Expense.UseCases.Commands
             private readonly IRepository<Core.Domain.Expense> _repository;
             public AddExpenseCommandHandler(IRepository<Core.Domain.Expense> repository)
             {
-                _repository = _repository;
+                _repository = repository;
             }
             public async Task<Result> Handle(AddExpenseCommand request, CancellationToken cancellationToken)
             {
